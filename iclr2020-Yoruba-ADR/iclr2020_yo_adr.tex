@@ -1,0 +1,328 @@
+
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2020_conference,times}
+
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+
+\title{Improving Yor{\`u}b{\'a} Diacritic Restoration}
+
+
+% This will be everyone who has (a) provided or cleaned text (b) contributed code
+\author{David Ad{\'e}lan{\'i}, K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n, \\ 
+T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa, W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i}, \\\d{O}l{\'a}mil{\'e}kan Wahab,  Victor Williamson, \\
+		Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
+Yor{\`u}b{\'a} Name \& Niger-Volta Language Technologies Institute\\
+Cranberry-Lemon University\\
+Pittsburgh, PA 15213, USA \\
+\texttt{\{hippo,brain,jen\}@cs.cranberry-lemon.edu} \\
+\And
+Ji Q. Ren \& Yevgeny LeNet \\
+Department of Computational Neuroscience \\
+University of the Witwatersrand \\
+Joburg, South Africa \\
+\texttt{\{robot,net\}@wits.ac.za} \\
+\AND
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email}
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+%\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Yor{\`u}b{\'a} is a widely spoken West African language with a writing system rich in orthographic and tonal diacritics. They provide morphological information, are crucial for lexical disambiguation, pronunciation and are vital for any computational Speech or Natural Language Processing  tasks. However diacritic marks, known in Yor{\`u}b{\'a} as \emph{am{\'i} oh{\`u}n}, are commonly excluded from electronic texts due to limited device and application support as well as general education on proper usage.
+
+Building on our previous work \citep{orife2018adr}, we report on recent efforts at dataset cultivation, including web-scraping, text cleaning, diacritic error correction as well as Optical Character Recognition (OCR) from books. By aggregating and improving disparate texts from the web, as well as text curated from personal libraries, we were able to significantly grow our clean Yor{\`u}b{\'a} dataset from a majority Bibilical text corpora of some 900K tokens from three sources to over 11M tokens from over a dozen sources. 
+ 
+ We evaluate improved versions of our diacritic restoration models on a new, general purpose, public domain Yor{\`u}b{\'a} dataset of modern journalistic news text. We selected this text to be a multi-purpose corpus reflecting contemporary usage. As before, we have released all pre-trained models, datasets and source-code as an open-source project to advance efforts on Yor{\`u}b{\'a} language technology.\\
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+Yor{\`u}b{\'a} is a tonal language spoken by more than 40 Million people in the countries of Nigeria, Benin and Togo in West Africa. There are an additional million speakers in the African diaspora, making it the most broadly spoken African language outside Africa \citep{yoruba_language}. The phonology is comprised of eighteen consonants \emph{({b}, {d}, {f}, {g}, {gb}, {h}, {j}, {k}, {l}, {m}, {n}, {p}, {r}, {s}, \d{s}, {t}, {w}, y)}, seven oral vowel \emph{({a}, {e}, \d{e}, \d{i}, {o}, \d{o}, {u})} and five nasal vowel phonemes \emph{({an}, \d{e}{n}, {in}, \d{o}{n}, {un})} with three kinds of tones realized on all vowels and syllabic nasal consonants \emph{({\'m}, {\'n})} \citep{akinlabi2004sound}. Yor{\`u}b{\'a} orthography makes notable use of tonal diacritics to designate tonal patterns, and orthographic diacritics like underdots for various language sounds \citep{adegbola2012quantifying, wells2000orthographic}.
+
+On modern computing and communication platforms, the majority of Yor{\`u}b{\'a} text is written in plain ASCII, without diacritics. This has negative implications for the quality of any Machine Translation (MT), Natural Language Processing (NLP) or Automatic Speech Recognition (ASR) task. To unlock the potential for a robust ecosystem of \emph{Yor{\`u}b{\'a}-first} language technologies, Yor{\`u}b{\'a} text must be correctly represented on current and future computing environments. The ultimate objective of automatic diacritic restoration (ADR) systems is to facilitate text entry and text correction that motivates and encourages the correct orthography and promotes quotidian usage of the language in electronic media.
+
+\subsection{Ambiguity in non-diacritized text}
+The main challenge in non-diacritized text is that it is very ambiguous \citep{orife2018adr, adegbola2012quantifying, asahiah2017restoring, de2007automatic}. ADR, which goes by other names such as Unicodification \citep{scannell2011statistical} or deASCIIfication \citep{arslan2016deasciification}, is a process which attempts to resolve the ambiguity present in undiacritized text. Adegbola et al. state that for ADR the ``prevailing error factor is the number of valid alternative arrangements of the diacritical marks that can be applied to the vowels and syllabic nasals within the words" \citep{adegbola2012quantifying}. Analogously to the analyses performed in \citep{orife2018adr}, we quantify the ambiguity in our current training set by the percentage of all words that have diacritics, 85\%; the percentage of unique non-diacritized word types that have two or more diacritized forms, 32\%, and the lexical diffusion or \emph{LexDif} metric, which conveys the average number of alternatives for each non-diacritized word, 1.47. IOHAVOC.
+
+\begin{table}[t]
+\caption{Diacritic characters with their non-diacritic forms}
+\label{ambiguity-table}
+\begin{center}
+  \begin{tabular}{lcl}
+    \multicolumn{2}{c}{\bf Characters} & \textbf{Examples}  \\
+	 \hline \\
+    {\`a} {\'a} \v{a} & \textbf{a} & gb{\`a} \emph{(spread)}, gba \emph{(accept)}, gb{\'a} \emph{(hit)}    \\  
+    {\`e} {\'e} \d{e} \d{\`e} \d{\'e} & \textbf{e} & {\`e}s{\`e} \emph{(dye)}, \d{e}s\d{\`e} \emph{(foot)}, es{\'e} \emph{(cat)}\\
+    {\`i} {\'i} & \textbf{i} & {\`i}l{\`u} \emph{(drum)}, ilu \emph{(opener)}, {\`i}l{\'u} \emph{(town)}\\  
+    {\`o} {\'o} \d{o} \d{\`o} \d{\'o} \v{o} & \textbf{o} & ar\d{o} \emph{(an invalid)}, ar{\'o} \emph{(indigo)}, {\`a}r{\`o} \emph{(hearth)}, {\`a}r\d{o} \emph{(funnel)}, {\`a}r\d{\`o} \emph{(catfish)}\\  
+    {\`u} {\'u} \v{u} & \textbf{u} & k{\`u}n \emph{(to paint)}, kun \emph{(to carve)}, k{\'u}n \emph{(be full)} \\
+	\hline \\
+    {\`n} {\'n} \={n} & \textbf{n} & {\`n} (a negator), {n} \emph{(I)}, {\'n} (continuous aspect marker) \\  
+    \d{s} & \textbf{s} &  \d{s}{\`a} \emph{(to choose)}, \d{s}{\'a} \emph{(fade)}, {s}{\`a} \emph{(to baptise)}, {s}{\'a} \emph{(to run)}\\  
+	\hline \\
+  \end{tabular}
+\end{center}
+\end{table}
+
+Finally, 64\% of all unique, non-diacritized monosyllabic words possess multiple diacritized forms \citep{oluseye2003yoruba, delano1969dictionary}. Given that Yor{\`u}b{\'a} verbs are predominantly monosyllabic and that there are tonal changes rules governing how tonal diacritics on a specific word are \emph{altered} based on context, we acknowledge the complexity of the disambiguation task of diacritic restoration \citep{orife2018adr, delano1969dictionary}. 
+
+\subsection{Improving generalization performance}
+
+In our efforts to make the the first ADR models \citep{orife2018adr}, trained on majority Biblical text, available to a wider audience, we frequently tested on colloquial, conversational text. We observed that these early ADR models suffered from domain-mismatch generalization errors and appeared particularly not-robust when presented with contractions or variants of common phrases. We attributed these errors to low-diversity of sources, in this case just three, as well as not-enough-data, under a million tokens. To remedy this problem,  we set about to  we demonstrate that we can improve the model trained on majority Biblical text, using a lot more text from the a variety of sources.
+
+This paper is organized as follows. Section 2 summarizes our data collection efforts. In section 3, we outline our experimental setup and models trained. In section 4, we present the results of the evaluation. In section 5, we conclude with an error analysis and future directions.
+
+\section{Data Collection}\label{sec:collection}
+
+We started by first attempting a comprehensive GitHub, literature and Google web search, assembling all the public-domain Yor{\`u}b{\'a} sources online. Those without admissible or consistent quality were put into a special queue for human supervision and corrections. This notably included Wikipedia and Twitter. Below we describe briefly each of the admitted corpora to convey a sense of the subject matter and word distributions. 
+
+
+
+\begin{itemize}
+
+\item \textbf{JW300}: JW300 is a large-scale a parallel corpus for Machine Translation (MT) comprising more than three hundred languages with on average one hundred thousand parallel sentences per language pair. The Yor{\`u}b{\'a}-English token pairs number some thirteen million. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines by Jehovah's Witnesses (JW).
+
+\item \textbf{B{\'i}b{\'e}l{\`i}}: Two different versions of the Yor{\`u}b{\'a} Bible were web-scraped cleaned. The first is from Biblica, which is a translation of the New International Version (NIV). The second version is a 2010 translation published by the Bible Society of Nigeria (BSN). Our previous work only used the Biblica version. A computational analysis of the word distributions of each Bible's text revealed that on average 60\% of all verses were not identical. Therefore, it valuable to have both versions of the Bible to give a diversity of expression for the same concepts. Further more, the additional size was is still dwarfed by the JW300 corpus. 
+
+\item \textbf{Language identification corpus}: This medium sized corpus of one hundred and fifty thousand tokens was used in a Nigerian language identification task involving the three major Nigerian tongues, Hausa, Igbo and Yor{\`u}b{\'a}. We obtained the public-domain text from GitHub \cite{Asubiaro_langid}.
+
+\item \textbf{Yor{\`u}b{\'a}-Twi word-embedding corpora}
+This medium sized corpus comprises a number of texts used in a recent word embedding task 
+
+\item \textbf{{\`O}we}: {\`O}we is a small collection of Yor{\`u}b{\'a} proverbs scraped from the electronic version of \emph{The Good Person: Excerpts from the Yor{\`u}b{\'a} Proverb Treasury}, a collection compiled and translated by Dr. Oyekan Owomoyela at the University of Nebraska - Lincoln. The corpus has five thousand tokens and parallel English translations \cite{oweyoruba}.
+
+\item \textbf{Universal Declaration of Human Rights}
+This is a tiny corpus of some two thousand eight hundred tokens from the Universal Declaration of Human Rights.
+
+\item \textbf{L\d{\'e}s{\'i}k{\`a}}: \d{\'e}s{\'i}k{\`a} is a fifty thousand token corpus of unigrams taken from recent research by Victor Williamson on the Yor{\`u}b{\'a} dictionary. To this list we added de-duped unigrams from all the entire dataset, before splitting into training and validation. This gave us a comprehensive view and the ability to learn the diacritic patterns of all Yor{\`u}b{\'a} words as well as common loan-words.
+
+\item \textbf{Private texts}: In addition to the public domain texts, the authors also had access to personal archives of written work, correctly tone-marked that would add some meaningful diversity to the corpus. These included transcription of interviews and long form stories. These texts numbered some three hundred thousand tokens.
+
+\item \textbf{{Yor{\`u}b{\'a} Object Character Recognition (OCR)}}: Another direction explored by the authors, was the use of Object Character Recognition (OCR).  This is the process of scanning physical books to derive plain text from the scanned images. However the presence of diacritics in Yor{\`u}b{\'a} books presents problems for English OCR models. So we retrained a new Yor{\`u}b{\'a} OCR model using existing clean text. TIMI elborate here on what was done. Feel free to blow grammer and give technical details.\. We bootstrapped our Háà Ènìyàn efforts, Ogboju Ode as well as Aaro Meta.
+\end{itemize}
+
+ \begin{table}[h]
+  \caption{Training data subsets}
+  \label{tab:training_datasets}
+  \centering
+  \begin{tabular}{rll}
+    \toprule
+    \textbf{\# words} & \textbf{Source or URL}  & \textbf{Description} \\
+    \midrule
+    24,868 & rma.nwu.ac.za  & Lagos-NWU corpus \\  
+    50,202 & theyorubablog.com & language blog\\  
+    910,401 & bible.com/versions/911 & Biblica \\
+    \midrule
+    11,488,825 & opus.nlpl.eu & JW300 \\
+    831,820 & bible.com/versions/207 & Bible Society Nigeria \\
+    142,991 & - & Language ID corpus \\
+    47,195 & - & Yor{\`u}b{\'a} Lexicon \\
+    29,338 & yoruba.unl.edu & Proverbs \\
+    28,308 & yo.globalvoices.org & Global Voices news \\
+    2,887 & unicode.org/udhr & Human rights edict \\
+
+    \midrule
+    150,360 & - & Interview text \\
+    15,243 & - & Short Stories \\
+    910,401 & - & Háà Ènìyàn \\
+
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
+\section{Methodology and Results}\label{sec:methods}
+
+
+\subsection{Community Building}
+\label{subsec:communitybuilding}
+% timelines
+% talk about why machine translation is a good task to attempt first.
+
+% github: 16 contributors
+
+
+% online communication channels: slack: 127 members (22 Jan), google groups: 109 members, call: 6-15
+% Julia: I got this data from slack analytics. Not sure if it's interesting to that detail :)
+% slack analytics: https://masakhane-nlp.slack.com/stats
+% here in a google doc: https://docs.google.com/spreadsheets/d/1peFC4TzHk0Si9nNcnXOfaFWVcZGdnjZ2GtYy18dJH2E/edit?usp=sharing
+\paragraph{Online communication.} The community channel that gained most participation was Slack. Figure~\ref{fig:slack} shows how the number of members grew since creation. Of the weekly active members, roughly one half submit posts. End of November, something magic happened that doubled the number of members.  
+% Julia: what happened end of November?
+We can also see that the upcoming paper deadlines increased activity. 
+% Julia: can we take this as evidence that it is encouraging to organize events and venues for gathering people and results
+
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{slack-members.pdf}
+%    \caption{Development of the Masakhane slack over time.}
+%    \label{fig:slack}
+%\end{figure}
+
+
+\subsection{Focus}
+\label{subsec:focus}
+
+% handling part-time individuals
+
+\subsection{Discoverability}
+\label{subsec:discoverability}
+
+\subsection{Reproducibility}
+\label{subsec:reproducibility}
+
+\paragraph{Transparency.} Not only the code, data and results, but also the meeting notes and discussions are publicly available, such that any one with interest can re-trace decisions, re-read discussions, and re-produce benchmarks. In this way, new members to the community can catch up and find their areas of interest without the need of a central director.
+
+% Julia: Maybe this needs to go somewhere else, it's a bit about democratization and decentralisation 
+\paragraph{Minimal assumptions of resources.} The goal is to build data and code that anyone should be able to reproduce. This means that we cannot afford to make assumptions about access to hardware, to specialized knowledge in NLP, or to local experts. Therefore, created resources and their usage are designed to be self-explanatory. This is facilitated largely through Jupyter Notebooks\footnote{\url{https://jupyter.org/}} comprising documented data creation, model configuration, training and evaluation, optimized to run on Google Colab with a single (free) GPU for a small limited number of hours. The NMT models are built on Joey NMT \citep{joey2019}, an NMT toolkit that comes with a beginner-friendly documentation. %and pre-trained models for Autshumato (but we're not using them anywhere, right?
+
+\subsection{Benchmark Creation}
+\label{subsec:benchmarkcreation}
+
+\paragraph{Global test set.} For transfer learning it has to be guaranteed that there is no overlap between training data of any language with test data of any other language. For that reason we chose the JW300 corpus \citep{agic-vulic-2019-jw300}, that covers 300 languages of which 169 were identified as African, to extract a set of English sentences that are regarded as global test set and are excluded from training data for any language. Of the 169 languages, 101 were accessible with the \texttt{opusTools} package.\footnote{\url{https://github.com/Helsinki-NLP/OpusTools}} Figure~\ref{fig:data-size} summarizes the size of the parallel data by language. It ranges from 1,784 sentences for Mende, to 1.1M for Afrikaans, thus covers a wide range of what is understood as low-resource. From those sentences, we choose 4,000 English sentences that are shared across the most languages and are longer than eight words. 
+% fun fact: only 16 sentences occurred in all 101 languages
+This results in test sets of varying size per language. Possible expansions of these test sets (filling up smaller sets, adding data from different domain, etc.) will require an update of the global test set.
+% Julia: this is actually not ideal, because it means refiltering the training data and possibly retraining models. But that's generally a challenge with transfer learning, I guess people don't care so much  (e.g. what BERT was trained on) as long as the data is not identical 
+% Julia: would be nicer if we clustered them by region / similarity / size
+% Here's the table: https://docs.google.com/spreadsheets/d/1peFC4TzHk0Si9nNcnXOfaFWVcZGdnjZ2GtYy18dJH2E/edit#gid=919829453 - please feel free to do anything with it!
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\textwidth]{data-size.pdf}
+%    \caption{Number of parallel sentences in JW300 for 101 African languages.}
+%    \label{fig:data-size}
+%\end{figure}
+
+
+\subsection{Addressing Decentralization}
+\label{subsec:decentralization}
+
+% result: maximum physical meeting size of 3. 
+% digital regional/linguistic subgroups
+% participants on slack (very rough approximation): 
+% amharic 3
+% kiswahili 1
+% senegalese 7
+% tigrigna 2
+% wazobia (yoruba, igbo, hausa, nigerian) 39
+% southafrica 5
+
+% decentralization through organic ownership
+
+\subsection{Language Complexity}
+\label{subsec:languagecomplexity}
+
+% Distributed Research
+% Shared notebook
+% Weekly meetings
+% Allow for Independence
+% Joint Troubleshooting
+% Creativity encouraged
+
+\section{Preliminary Results}
+\label{headings}
+
+% report outcome of the feedback form
+
+% addressing the questions from the Motivation:
+% how did we increase the focus?  - country map, github participation
+% how did we discover data? % datasets discovered/created. %domains %sources.  
+% how did we improve reproducibility. %
+% what kind of benchmarks did we create? - 
+% how large/diverse is the community? - #countries. #occupations. #prior research experience. exposure to NLP, 
+% how complex are the languages that we cover? 
+% 
+
+% Languages that didn't have results before - and maybe some results
+% Datasets that didn't exist before
+% Number of submissions to the workshop
+
+%Results
+%Afrikaans
+%Amharic
+%Fongbe
+%Hausa
+%Igbo
+%Isoko
+%Tshiluba
+%Northern Sotho
+%Swahili
+%Tigrigna
+%Setswana
+%Xitsonga
+%Urhobo
+%isiZulu
+%Xitsonga
+
+\subsection{Discussion} %a.k.a lessons learned
+
+% Communication channels. 
+% Google groups is suboptimal, but people like to engage in multiple mediums. Supporting more than one has been helpful. 
+
+
+
+% High-drop off rate when people can't get stuff working smoothly. So we created the motivator position to help solve that. Or, before sharing the notebooks try on a few platforms.
+
+% Test sets must be sorted out early to avoid data leakage with transfer learning
+
+% Julia: not sure where this fits, it's a little bit of a rant as well (sorry :D)
+% Why is this an asset to the whole MT community?
+% NMT performance as measured in WMT benchmark has plateaued and there is little to no difference between competing systems when evaluated on resource-rich languages. Massively-multilingual approaches are up and coming, but they require the existence of related large-scale resources for low-resource languages to benefit. (back this up by a citation!) 
+% Pseudo-low-resource data sets are used to evaluate ``low-resource'' approaches
+
+\subsection{Future Work}
+%Moving towards outputs
+%Building killer apps
+%Sharing the experience and expanding the NLP tasks
+\subsubsection*{Acknowledgments}
+Use unnumbered third level headings for the acknowledgments. All
+acknowledgments, including those to funding agencies, go at the end of the paper.
+
+
+\bibliography{iclr2020_conference}
+\bibliographystyle{iclr2020_conference}
+
+\end{document}
+
+\subsection{Future Work - Whats Next}
+%Moving towards outputs
+%Building killer apps
+%Sharing the experience and expanding the NLP tasks
+\subsubsection*{Acknowledgments}
+Use unnumbered third level headings for the acknowledgments. All
+acknowledgments, including those to funding agencies, go at the end of the paper.
+
+
+\bibliography{iclr2020_conference}
+\bibliographystyle{iclr2020_conference}
+
+\appendix
+\section{Appendix}
+You may include other additional sections here. 
+
+\end{document}
