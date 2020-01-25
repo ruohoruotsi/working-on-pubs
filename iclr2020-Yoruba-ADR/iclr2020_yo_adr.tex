@@ -16,24 +16,30 @@
 
 
 % This will be everyone who has (a) provided or cleaned text (b) contributed code
-\author{David Ad{\'e}lan{\'i}, K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n, \\ 
-T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa, W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i}, \\\d{O}l{\'a}mil{\'e}kan Wahab,  Victor Williamson, \\
-		Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
-Yor{\`u}b{\'a} Name \& Niger-Volta Language Technologies Institute\\
-Cranberry-Lemon University\\
-Pittsburgh, PA 15213, USA \\
-\texttt{\{hippo,brain,jen\}@cs.cranberry-lemon.edu} \\
+\author{David Ad{\'e}lan{\'i} \\
+Saarland University\\
+Niger-Volta LTI \\
 \And
-Ji Q. Ren \& Yevgeny LeNet \\
-Department of Computational Neuroscience \\
-University of the Witwatersrand \\
-Joburg, South Africa \\
-\texttt{\{robot,net\}@wits.ac.za} \\
-\AND
-Coauthor \\
-Affiliation \\
-Address \\
-\texttt{email}
+Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
+Niger-Volta LTI\\
+\And
+K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n \\
+Yor{\`u}b{\'a} Name \\
+\And
+T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa \\
+Yor{\`u}b{\'a} Name \\
+Niger-Volta LTI \\
+\And
+W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i} \\
+Yor{\`u}b{\'a} Name \\
+Niger-Volta LTI \\
+\And
+\d{O}l{\'a}mil{\'e}kan Wahab \\
+Yor{\`u}b{\'a} Name \\
+Niger-Volta LTI \\
+\And
+Victor Williamson \\
+Yor{\`u}b{\'a} Name \\
 }
 
 % The \author macro works with any number of authors. There are two commands
@@ -47,7 +53,7 @@ Address \\
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
 
-%\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
 \begin{document}
 
 
@@ -98,10 +104,11 @@ In our efforts to make the the first ADR models \citep{orife2018adr}, trained on
 
 This paper is organized as follows. Section 2 summarizes our data collection efforts. In section 3, we outline our experimental setup and models trained. In section 4, we present the results of the evaluation. In section 5, we conclude with an error analysis and future directions.
 
-\section{Data Collection}\label{sec:collection}
+\section{Methodology}\label{sec:methods}
+
+\subsection{Data Collection}\label{sec:collection}
 
 We started by first attempting a comprehensive GitHub, literature and Google web search, assembling all the public-domain Yor{\`u}b{\'a} sources online. Those without admissible or consistent quality were put into a special queue for human supervision and corrections. This notably included Wikipedia and Twitter. Below we describe briefly each of the admitted corpora to convey a sense of the subject matter and word distributions. 
-
 
 
 \begin{itemize}
@@ -110,17 +117,16 @@ We started by first attempting a comprehensive GitHub, literature and Google web
 
 \item \textbf{B{\'i}b{\'e}l{\`i}}: Two different versions of the Yor{\`u}b{\'a} Bible were web-scraped cleaned. The first is from Biblica, which is a translation of the New International Version (NIV). The second version is a 2010 translation published by the Bible Society of Nigeria (BSN). Our previous work only used the Biblica version. A computational analysis of the word distributions of each Bible's text revealed that on average 60\% of all verses were not identical. Therefore, it valuable to have both versions of the Bible to give a diversity of expression for the same concepts. Further more, the additional size was is still dwarfed by the JW300 corpus. 
 
-\item \textbf{Language identification corpus}: This medium sized corpus of one hundred and fifty thousand tokens was used in a Nigerian language identification task involving the three major Nigerian tongues, Hausa, Igbo and Yor{\`u}b{\'a}. We obtained the public-domain text from GitHub \cite{Asubiaro_langid}.
+\item \textbf{Language identification corpus}: This medium sized corpus of one hundred and fifty thousand tokens was used in a Nigerian language identification task involving the three major Nigerian tongues, Hausa, Igbo and Yor{\`u}b{\'a}. We obtained the public-domain text from GitHub \citep{Asubiaro_langid}.
 
 \item \textbf{Yor{\`u}b{\'a}-Twi word-embedding corpora}
 This medium sized corpus comprises a number of texts used in a recent word embedding task 
 
-\item \textbf{{\`O}we}: {\`O}we is a small collection of Yor{\`u}b{\'a} proverbs scraped from the electronic version of \emph{The Good Person: Excerpts from the Yor{\`u}b{\'a} Proverb Treasury}, a collection compiled and translated by Dr. Oyekan Owomoyela at the University of Nebraska - Lincoln. The corpus has five thousand tokens and parallel English translations \cite{oweyoruba}.
+\item \textbf{{\`O}we} is a small collection of Yor{\`u}b{\'a} proverbs scraped from the electronic version of \emph{The Good Person: Excerpts from the Yor{\`u}b{\'a} Proverb Treasury}, a collection compiled and translated by Dr. Oyekan Owomoyela at the University of Nebraska - Lincoln. The corpus has five thousand tokens and parallel English translations \citep{oweyoruba}.
 
-\item \textbf{Universal Declaration of Human Rights}
-This is a tiny corpus of some two thousand eight hundred tokens from the Universal Declaration of Human Rights.
+\item \textbf{Universal Declaration of Human Rights} is a tiny corpus of some two thousand eight hundred tokens from the Universal Declaration of Human Rights.
 
-\item \textbf{L\d{\'e}s{\'i}k{\`a}}: \d{\'e}s{\'i}k{\`a} is a fifty thousand token corpus of unigrams taken from recent research by Victor Williamson on the Yor{\`u}b{\'a} dictionary. To this list we added de-duped unigrams from all the entire dataset, before splitting into training and validation. This gave us a comprehensive view and the ability to learn the diacritic patterns of all Yor{\`u}b{\'a} words as well as common loan-words.
+\item \textbf{L\d{\'e}s{\'i}k{\`a}} is a fifty thousand token corpus of unigrams taken from recent research by Victor Williamson on the Yor{\`u}b{\'a} dictionary. To this list we added de-duped unigrams from all the entire dataset, before splitting into training and validation. This gave us a comprehensive view and the ability to learn the diacritic patterns of all Yor{\`u}b{\'a} words as well as common loan-words.
 
 \item \textbf{Private texts}: In addition to the public domain texts, the authors also had access to personal archives of written work, correctly tone-marked that would add some meaningful diversity to the corpus. These included transcription of interviews and long form stories. These texts numbered some three hundred thousand tokens.
 
@@ -156,149 +162,80 @@ This is a tiny corpus of some two thousand eight hundred tokens from the Univers
   \end{tabular}
 \end{table}
 
+\subsection{Experimental setup}\label{sec:experimental}
+
+ When collecting data from disparate sources, we preprocessed texts to ensure consistent, error-free diacritization, splitting lines on full-stops to give one sentence per line. To ensure our splits are drawn from similar distributions, we combined all text, shuffled and split utterances into a ratio of 90\%, 10\%, for training and dev sets respectively.   
+
+To prepare source and target texts for parallel training via a sequence-to-sequence architecture, all characters in the texts were dispossessed of their diacritics. Diacritized text was converted to Unicode Normalization Form Canonical Decomposition (NFD) which separates a base character from its diacritics. Next, \emph{UnicodeCategory.NonSpacingMark} characters, which house the diacritic modifications to a character, were filtered out. This yielded two sets of text, one stripped of diacritics (the source) and the other with full diacritics (the training target). 
+
+To better understand the dataset split, we computed a perplexity of 575.6 for the test targets with a language model trained over the training targets \citep{stolcke2002srilm}. The \{source, target\} vocabularies for training and test sets have \{11857, 18979\} and \{4042, 5641\} word types respectively.
+
+\subsection{Using pre-trained text embeddings}
+TEXT TO FIX and TO DESCRIBE DAVID's FastText, BERT and XLM embeddings. FastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddings.
 
 
-\section{Methodology and Results}\label{sec:methods}
+\subsection{A new, modern multi-purpose evaluation dataset}\label{sec:evaldataset}
+
+Here we discuss in detail the selection of Iroyin, perhaps present some facts and figures about it, to better understand why it is a good evaluation set and to motivate how we converged on it being the best text subset. Modern, non-archaic text, popular usage and a better proxy than any of the religious centered texts (JW300, Bibeli, etc) and less formal.
+
+Global Voices is a multilingual community of journalists, translators, bloggers, academics and human rights activists. Their newsroom articles are translated into dozens of languages. We used a web-scrape of their Yor{\`u}b{\'a} articles comprising some twenty-eight thousand tokens.
+
+In the previous paper, the test set was selected as a subset of the total available dataset, this means that the test and validation sets, drew generally speaking from the same distribution as the training set, this explains the stellar performance reported in Orife, 2018. However, we need our evaluation set to be a (1) public (2) representative of a mixture of modern written and spoken Yoruba styles (3) large enough. 
+
+From the texts that we had available, including interviews, journalistic news, literary and liturgical texts, there was a consensus that the journalistic news text best represented the modern, colloquial usage of the language. Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
 
 
-\subsection{Community Building}
-\label{subsec:communitybuilding}
-% timelines
-% talk about why machine translation is a good task to attempt first.
-
-% github: 16 contributors
+\subsection{Training}\label{sec:training}
+We built all models with the Python 3 implementation of \texttt{OpenNMT-py}, an open-source toolkit created by the Klein et al. \citep{opennmt}. Our training hardware configuration was a standard AWS EC2 p2.xlarge instance with a NVIDIA K80 GPU, 4 vCPUs and 61GB RAM. Training the various models took place over the course of a few days.
 
 
-% online communication channels: slack: 127 members (22 Jan), google groups: 109 members, call: 6-15
-% Julia: I got this data from slack analytics. Not sure if it's interesting to that detail :)
-% slack analytics: https://masakhane-nlp.slack.com/stats
-% here in a google doc: https://docs.google.com/spreadsheets/d/1peFC4TzHk0Si9nNcnXOfaFWVcZGdnjZ2GtYy18dJH2E/edit?usp=sharing
-\paragraph{Online communication.} The community channel that gained most participation was Slack. Figure~\ref{fig:slack} shows how the number of members grew since creation. Of the weekly active members, roughly one half submit posts. End of November, something magic happened that doubled the number of members.  
-% Julia: what happened end of November?
-We can also see that the upcoming paper deadlines increased activity. 
-% Julia: can we take this as evidence that it is encouraging to organize events and venues for gathering people and results
-
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=0.7\textwidth]{slack-members.pdf}
-%    \caption{Development of the Masakhane slack over time.}
-%    \label{fig:slack}
-%\end{figure}
+\section{Results}\label{sec:results}
 
 
-\subsection{Focus}
-\label{subsec:focus}
-
-% handling part-time individuals
-
-\subsection{Discoverability}
-\label{subsec:discoverability}
-
-\subsection{Reproducibility}
-\label{subsec:reproducibility}
-
-\paragraph{Transparency.} Not only the code, data and results, but also the meeting notes and discussions are publicly available, such that any one with interest can re-trace decisions, re-read discussions, and re-produce benchmarks. In this way, new members to the community can catch up and find their areas of interest without the need of a central director.
-
-% Julia: Maybe this needs to go somewhere else, it's a bit about democratization and decentralisation 
-\paragraph{Minimal assumptions of resources.} The goal is to build data and code that anyone should be able to reproduce. This means that we cannot afford to make assumptions about access to hardware, to specialized knowledge in NLP, or to local experts. Therefore, created resources and their usage are designed to be self-explanatory. This is facilitated largely through Jupyter Notebooks\footnote{\url{https://jupyter.org/}} comprising documented data creation, model configuration, training and evaluation, optimized to run on Google Colab with a single (free) GPU for a small limited number of hours. The NMT models are built on Joey NMT \citep{joey2019}, an NMT toolkit that comes with a beginner-friendly documentation. %and pre-trained models for Autshumato (but we're not using them anywhere, right?
-
-\subsection{Benchmark Creation}
-\label{subsec:benchmarkcreation}
-
-\paragraph{Global test set.} For transfer learning it has to be guaranteed that there is no overlap between training data of any language with test data of any other language. For that reason we chose the JW300 corpus \citep{agic-vulic-2019-jw300}, that covers 300 languages of which 169 were identified as African, to extract a set of English sentences that are regarded as global test set and are excluded from training data for any language. Of the 169 languages, 101 were accessible with the \texttt{opusTools} package.\footnote{\url{https://github.com/Helsinki-NLP/OpusTools}} Figure~\ref{fig:data-size} summarizes the size of the parallel data by language. It ranges from 1,784 sentences for Mende, to 1.1M for Afrikaans, thus covers a wide range of what is understood as low-resource. From those sentences, we choose 4,000 English sentences that are shared across the most languages and are longer than eight words. 
-% fun fact: only 16 sentences occurred in all 101 languages
-This results in test sets of varying size per language. Possible expansions of these test sets (filling up smaller sets, adding data from different domain, etc.) will require an update of the global test set.
-% Julia: this is actually not ideal, because it means refiltering the training data and possibly retraining models. But that's generally a challenge with transfer learning, I guess people don't care so much  (e.g. what BERT was trained on) as long as the data is not identical 
-% Julia: would be nicer if we clustered them by region / similarity / size
-% Here's the table: https://docs.google.com/spreadsheets/d/1peFC4TzHk0Si9nNcnXOfaFWVcZGdnjZ2GtYy18dJH2E/edit#gid=919829453 - please feel free to do anything with it!
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=\textwidth]{data-size.pdf}
-%    \caption{Number of parallel sentences in JW300 for 101 African languages.}
-%    \label{fig:data-size}
-%\end{figure}
+The dev set will be the test set drawn from the training data's distribution. Test set will be Iroyin as described above. We should match the figures published in \citep{orife2018adr} with the current figure to tell a consistent story. Even though the test set has changed, we should still evaluate the legacy models on it to show how badly it geneneralized even thought it had very good in-domain performance.
 
 
-\subsection{Addressing Decentralization}
-\label{subsec:decentralization}
+To evaluate the performance of our ADR models, we computed the accuracy score as the ratio of correct words restored to all words. We calculate the perplexity of each model's predictions based on the test set targets.
+ \begin{table}[h]
+  \caption{Training \& Test Accuracy and Perplexity}
+  \label{tab:results}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Model} & \textbf{Train\%} & \textbf{Dev\%} & \textbf{Test\%} &\textbf{PPL} \\
+    \midrule
+    Baseline RNN & 96.2 & 90.1 & 90.1 & 1.68 \\
+    Bandahau from [1] & 95.9 & 90.1 & 90.1 & 1.85 \\
+    \midrule
+	Bandahau++ & - & - & - & - \\ 
+	Transformer++ & - & - & - & - \\ 
+	\midrule
+	Transformer++ FastText & - & - & - & - \\ 
+	Transformer++ BERT & - & - & - & - \\ 
+	Transformer++ XLM & - & - & - & - \\ 
 
-% result: maximum physical meeting size of 3. 
-% digital regional/linguistic subgroups
-% participants on slack (very rough approximation): 
-% amharic 3
-% kiswahili 1
-% senegalese 7
-% tigrigna 2
-% wazobia (yoruba, igbo, hausa, nigerian) 39
-% southafrica 5
+    \bottomrule
+  \end{tabular}
+\end{table}
+Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. 
 
-% decentralization through organic ownership
+\subsection{Error Analysis}
+While performing error analyses on the model predictions, we observed: DESCRIBE YOUR OBSERVATIONS
 
-\subsection{Language Complexity}
-\label{subsec:languagecomplexity}
+\section{Conclusions}
 
-% Distributed Research
-% Shared notebook
-% Weekly meetings
-% Allow for Independence
-% Joint Troubleshooting
-% Creativity encouraged
-
-\section{Preliminary Results}
-\label{headings}
-
-% report outcome of the feedback form
-
-% addressing the questions from the Motivation:
-% how did we increase the focus?  - country map, github participation
-% how did we discover data? % datasets discovered/created. %domains %sources.  
-% how did we improve reproducibility. %
-% what kind of benchmarks did we create? - 
-% how large/diverse is the community? - #countries. #occupations. #prior research experience. exposure to NLP, 
-% how complex are the languages that we cover? 
-% 
-
-% Languages that didn't have results before - and maybe some results
-% Datasets that didn't exist before
-% Number of submissions to the workshop
-
-%Results
-%Afrikaans
-%Amharic
-%Fongbe
-%Hausa
-%Igbo
-%Isoko
-%Tshiluba
-%Northern Sotho
-%Swahili
-%Tigrigna
-%Setswana
-%Xitsonga
-%Urhobo
-%isiZulu
-%Xitsonga
 
 \subsection{Discussion} %a.k.a lessons learned
+Additional data and more diverse data definitely improves performance. Modern Text embeddings provide an additional boost in accuracy (TBD).
 
-% Communication channels. 
-% Google groups is suboptimal, but people like to engage in multiple mediums. Supporting more than one has been helpful. 
-
-
-
-% High-drop off rate when people can't get stuff working smoothly. So we created the motivator position to help solve that. Or, before sharing the notebooks try on a few platforms.
-
-% Test sets must be sorted out early to avoid data leakage with transfer learning
-
-% Julia: not sure where this fits, it's a little bit of a rant as well (sorry :D)
-% Why is this an asset to the whole MT community?
-% NMT performance as measured in WMT benchmark has plateaued and there is little to no difference between competing systems when evaluated on resource-rich languages. Massively-multilingual approaches are up and coming, but they require the existence of related large-scale resources for low-resource languages to benefit. (back this up by a citation!) 
-% Pseudo-low-resource data sets are used to evaluate ``low-resource'' approaches
 
 \subsection{Future Work}
 %Moving towards outputs
 %Building killer apps
 %Sharing the experience and expanding the NLP tasks
+
+All public-domain datasets referenced in this work are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-text}} \footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-adr}}
+
 \subsubsection*{Acknowledgments}
 Use unnumbered third level headings for the acknowledgments. All
 acknowledgments, including those to funding agencies, go at the end of the paper.
@@ -306,23 +243,5 @@ acknowledgments, including those to funding agencies, go at the end of the paper
 
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
-
-\end{document}
-
-\subsection{Future Work - Whats Next}
-%Moving towards outputs
-%Building killer apps
-%Sharing the experience and expanding the NLP tasks
-\subsubsection*{Acknowledgments}
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments, including those to funding agencies, go at the end of the paper.
-
-
-\bibliography{iclr2020_conference}
-\bibliographystyle{iclr2020_conference}
-
-\appendix
-\section{Appendix}
-You may include other additional sections here. 
 
 \end{document}
