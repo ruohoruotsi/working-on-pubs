@@ -27,16 +27,13 @@ K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n \\
 Yor{\`u}b{\'a} Name \\
 \And
 T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa \\
-Yor{\`u}b{\'a} Name \\
-Niger-Volta LTI \\
-\And
-W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i} \\
-Yor{\`u}b{\'a} Name \\
 Niger-Volta LTI \\
 \And
 \d{O}l{\'a}mil{\'e}kan Wahab \\
-Yor{\`u}b{\'a} Name \\
 Niger-Volta LTI \\
+\And
+W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i} \\
+Data Science Nigeria \\
 \And
 Victor Williamson \\
 Yor{\`u}b{\'a} Name \\
@@ -60,16 +57,12 @@ Yor{\`u}b{\'a} Name \\
 \maketitle
 
 \begin{abstract}
-Yor{\`u}b{\'a} is a widely spoken West African language with a writing system rich in orthographic and tonal diacritics. They provide morphological information, are crucial for lexical disambiguation, pronunciation and are vital for any computational Speech or Natural Language Processing  tasks. However diacritic marks, known in Yor{\`u}b{\'a} as \emph{am{\'i} oh{\`u}n}, are commonly excluded from electronic texts due to limited device and application support as well as general education on proper usage.
-
-Building on our previous work \citep{orife2018adr}, we report on recent efforts at dataset cultivation, including web-scraping, text cleaning, diacritic error correction as well as Optical Character Recognition (OCR) from books. By aggregating and improving disparate texts from the web, as well as text curated from personal libraries, we were able to significantly grow our clean Yor{\`u}b{\'a} dataset from a majority Bibilical text corpora of some 900K tokens from three sources to over 11M tokens from over a dozen sources. 
- 
- We evaluate improved versions of our diacritic restoration models on a new, general purpose, public domain Yor{\`u}b{\'a} dataset of modern journalistic news text. We selected this text to be a multi-purpose corpus reflecting contemporary usage. As before, we have released all pre-trained models, datasets and source-code as an open-source project to advance efforts on Yor{\`u}b{\'a} language technology.\\
+Yor{\`u}b{\'a} is a widely spoken West African language with a writing system rich in orthographic and tonal diacritics. They provide morphological information, are crucial for lexical disambiguation, pronunciation and are vital for any computational Speech or Natural Language Processing  tasks. However diacritic marks are commonly excluded from electronic texts due to limited device and application support as well as general education on proper usage. Building on our previous work, we report on recent efforts at dataset cultivation. By aggregating and improving disparate texts from the web and various personal libraries, we were able to significantly grow our clean Yor{\`u}b{\'a} dataset from a majority Bibilical text corpora from three sources to millions of tokens from over a dozen sources. We evaluate updated diacritic restoration models on a new, general purpose, public domain Yor{\`u}b{\'a} dataset of modern journalistic news text, selected to be a multi-purpose corpus reflecting contemporary usage. All pre-trained models, datasets and source-code have been released as an open-source project to advance efforts on Yor{\`u}b{\'a} language technology.\\
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
 
-Yor{\`u}b{\'a} is a tonal language spoken by more than 40 Million people in the countries of Nigeria, Benin and Togo in West Africa. There are an additional million speakers in the African diaspora, making it the most broadly spoken African language outside Africa \citep{yoruba_language}. The phonology is comprised of eighteen consonants \emph{({b}, {d}, {f}, {g}, {gb}, {h}, {j}, {k}, {l}, {m}, {n}, {p}, {r}, {s}, \d{s}, {t}, {w}, y)}, seven oral vowel \emph{({a}, {e}, \d{e}, \d{i}, {o}, \d{o}, {u})} and five nasal vowel phonemes \emph{({an}, \d{e}{n}, {in}, \d{o}{n}, {un})} with three kinds of tones realized on all vowels and syllabic nasal consonants \emph{({\'m}, {\'n})} \citep{akinlabi2004sound}. Yor{\`u}b{\'a} orthography makes notable use of tonal diacritics to designate tonal patterns, and orthographic diacritics like underdots for various language sounds \citep{adegbola2012quantifying, wells2000orthographic}.
+Yor{\`u}b{\'a} is a tonal language spoken by more than 40 Million people in the countries of Nigeria, Benin and Togo in West Africa. There are an additional million speakers in the African diaspora, making it the most broadly spoken African language outside Africa \citep{yoruba_language}. The phonology is comprised of eighteen consonants \emph{({b}, {d}, {f}, {g}, {gb}, {h}, {j}, {k}, {l}, {m}, {n}, {p}, {r}, {s}, \d{s}, {t}, {w}, y)}, seven oral vowel \emph{({a}, {e}, \d{e}, \d{i}, {o}, \d{o}, {u})} and five nasal vowel phonemes \emph{({an}, \d{e}{n}, {in}, \d{o}{n}, {un})} with three kinds of tones realized on all vowels and syllabic nasal consonants \emph{({\'m}, {\'n})} \citep{akinlabi2004sound}. Yor{\`u}b{\'a} orthography makes notable use of tonal diacritics, known as \emph{am{\'i} oh{\`u}n}, to designate tonal patterns, and orthographic diacritics like underdots for various language sounds \citep{adegbola2012quantifying, wells2000orthographic}.
 
 On modern computing and communication platforms, the majority of Yor{\`u}b{\'a} text is written in plain ASCII, without diacritics. This has negative implications for the quality of any Machine Translation (MT), Natural Language Processing (NLP) or Automatic Speech Recognition (ASR) task. To unlock the potential for a robust ecosystem of \emph{Yor{\`u}b{\'a}-first} language technologies, Yor{\`u}b{\'a} text must be correctly represented on current and future computing environments. The ultimate objective of automatic diacritic restoration (ADR) systems is to facilitate text entry and text correction that motivates and encourages the correct orthography and promotes quotidian usage of the language in electronic media.
 
