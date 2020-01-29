@@ -1,0 +1,140 @@
+
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2020_conference,times}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title{Towards Neural Machine Translation \\ for Edoid Languages}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the \iclrfinalcopy macro remains commented out below.
+% Non-anonymous submissions will be rejected without review.
+
+\author{Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
+Niger-Volta Language Technologies Institute\\
+Seattle, WA 98119, USA \\
+\texttt{iroro@alumni.cmu.edu} \\
+\And
+Ji Q. Ren \& Yevgeny LeNet \\
+Department of Computational Neuroscience \\
+University of the Witwatersrand \\
+Joburg, South Africa \\
+\texttt{\{robot,net\}@wits.ac.za} \\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Many Nigerian languages have lost their previous prestige and purpose in modern society due the status of English and Nigerian Pidgin. These language inequalities for L1 speakers manifest themselves in unequal access to information, connectivity, health care, security as well as attenuated participation in political and civic life. This work explores the feasibility of Neural Machine Translation (NMT) for Edoid Languages, spoken by some 5 million people in Southern Nigeria. Using public datasets, we trained and evaluated translation models for four widely spoken langauges in this family: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have also been open-sourced to advance future research efforts on Edoid language technology.\\
+
+
+\end{abstract}
+
+\section{Introduction}
+
+Belonging to the Volta-Niger family, Edoid languages are a group some two dozen languages spoken in southern Nigeria by about 5 million people. The term \emph{Edoid} comes from \d{\`E}d{\'o} primary language of the famed Kingdom of Benin and the most broadly spoken member. 
+
+
+Good Goveranance, language equality, access to information and the such.
+
+\subsection{Languages}
+%  All pre-trained models, datasets and source-code have been released as an open-source 
+
+% Strong oral traditions, mostly written works are Bibles, hymm books and dictionaries.
+%https://en.wikipedia.org/wiki/Urhobo-Isoko
+
+\subsection{Related Works}
+
+While there has been recent interest in NMT for African languages, in Nigeria there has been a bit of literature on Rule-based, phrase-based and Statistical machine translation. This is the first work known to the authors done in any of the Edoid langauges specifically for machine translation.
+
+
+\section{Methodology}
+\label{methods}
+
+\subsection{Dataset}
+The recently released JW300 dataset is a large-scale, parallel corpus for Machine Translation (MT) comprising more than three hundred languages with on average one hundred thousand parallel sentences per language pair. English-\{\d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo, Isoko\} token pairs number \{10200, 2000, 200, 4000\} respectively. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines by Jehovah's Witnesses (JW).
+\subsection{Models}
+
+We used the JoeyNMT framework to train the Transformer. 
+
+\section{Results}
+\label{results}
+
+ \begin{table}[h]
+  \caption{Training \& Test Accuracy and Perplexity}
+  \label{tab:results}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Model} & \textbf{Train\%} & \textbf{Dev\%} & \textbf{Test\%} &\textbf{PPL} \\
+    \midrule
+    Baseline RNN & 96.2 & 90.1 & 90.1 & 1.68 \\
+    Bandahau from [1] & 95.9 & 90.1 & 90.1 & 1.85 \\
+    \midrule
+	Bandahau++ & - & - & - & - \\ 
+	Transformer++ & - & - & - & - \\ 
+	\midrule
+	Transformer++ FastText & - & - & - & - \\ 
+	Transformer++ BERT & - & - & - & - \\ 
+	Transformer++ XLM & - & - & - & - \\ 
+
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+more discussion here
+
+\subsection{Headings: second level}
+
+Second level headings are in small caps,
+flush left and in point size 10. One line space before the second level
+heading and 1/2~line space after the second level heading.
+
+\subsection{Error Analysis}
+While performing error analyses on the model predictions, we observed: DESCRIBE YOUR OBSERVATIONS
+
+\section{Conclusions}
+
+
+\subsection{Discussion}
+Additional data and more diverse data definitely improves performance. Modern Text embeddings will also provide an additional boost in accuracy. Overall more studies are needed regarding algorithmic preprocessing and hyperparamter fine-tuning. For example, we naively saw that for the smaller corpora BPE tokenization gave a slight boost in BLEU performance, while 
+
+
+\subsection{Future Work}
+We see this work as a foundational effort on a few fronts. Thee include social justice by addressing an aspect of technological language inequality, language perservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African langauge technology lies and mahcine translation and good clean datasets are the core.   
+
+All public-domain datasets referenced in this work are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI}}
+
+\subsubsection*{Acknowledgments}
+Use unnumbered third level headings for the acknowledgments. All
+acknowledgments, including those to funding agencies, go at the end of the paper.
+
+\bibliography{iclr2020_conference}
+\bibliographystyle{iclr2020_conference}
+
+\appendix
+\section{Appendix}
+You may include other additional sections here. 
+
+\end{document}
