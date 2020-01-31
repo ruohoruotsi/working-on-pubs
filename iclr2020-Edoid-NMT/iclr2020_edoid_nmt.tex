@@ -52,6 +52,8 @@ Many Nigerian languages have lost their previous prestige and purpose in modern 
 \end{abstract}
 
 \section{Introduction}
+
+% How can NMT help?
 Language technology has an enabling effect on society. However computational linguistics research has only addressed about 1\% of the world's languages. \citep{bird2012machine}. The disparity in 
 
 \citep{odoje201612}
@@ -61,15 +63,28 @@ Good Goveranance, language equality, access to information and the such.
 Machine translation  is relevant to the process of language documentation, preservation
 
 \subsection{Languages}
-Belonging to the Volta-Niger family, and spoken by some 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} comes from \d{\`E}d{\'o}, the language of the famed Kingdom of Benin and the most broadly spoken member. The two langauges under study, Urhobo and Isoko, are classified as South-Western Edoid, while \d{\`E}d{\'o}, \d{\`E}s{\'a}n are classified as North-Central \citep{wikiedoid}.
+Belonging to the Volta-Niger family, and spoken by some 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. Urhobo and Isoko are classified as South-Western Edoid, while \d{\`E}d{\'o}, \d{\`E}s{\'a}n are classified as North-Central \citep{wikiedoid}.
 
 % Stats on population and literacy rates? other linguistic  
 % what do they have in common, what is different amonst them. Summarize
+
+% this is how language inequality came about
+Many Nigerian langauges, with primarily oral traditions and no comparable body of literary works, are the most susceptible to language extinction. Many have already ceded privileged positions in society to English or Nigerian Pidgin from colonial times. Nigeria is unlike many East and South Asian countries, which were under colonial rule for centuries longer but were able to keep the socio-linguistic status of their indigenious languages intact. The paucity of highly esteemed works of literary scholarship has worked to devalue our indigenious languages and made them susceptible to being replaced by other languages of power and status \citep{awobuluyi201626}. This current language inequality is further exacerbated in this technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for access to information, technology, health care and economic advancement. 
+
+% rephrase
+These language inequalities for L1 speakers manifest themselves in unequal access to information, connectivity, health care, security as well as attenuated participation in political and civic life.
+
+% talk more here about how the language inequality can be helped with language technology
+
+
 Most African languages have been labelled ``low resource". This is due in part to the limited body of academic research, lack of funding and online-datasets as well as low interest, due to preceptions about the prestige and utility of these languages in contemporary African life \cite{odojelanguage, awobuluyi201626}. Finally there are practical and technical challenges with respect to orthographic standardizations, consistent diacritic representation (Unicode) in electronic media and across device types. 
 
 work has been done on Edoid languages, this is in part due to the limited datasets, which is a function of a 
 
-The objective of this study is to carry out foundational work using current NMT techniques in language family with rich oral traditions but very little literature. We seek to energize interest in language technology research for these minority languages. We contrast the performance of a baseline Transformer model across the four languages under study, examining the effect of word-level versus subword-level tokenization.
+The objective of this study is to carry out foundational work using current NMT techniques in a language family with rich oral traditions, to bootstrap the development and sustainance of scholarly and literary traditions in beyond religious texts. We seek to energize and promote interest in language technology research for these minority languages by publishing about them languages in a way that can compliment other remedial measures like education policy and political empowerment \citep{awobuluyi201626}.
+
+
+We contrast the performance of a baseline Transformer model across the four languages under study, examining the effect of word-level versus subword-level tokenization.
 
 
 
@@ -142,11 +157,13 @@ Additional data and more diverse data definitely improves performance. Modern Te
 \subsection{Future Work}
 We see this work as a foundational effort on a few fronts. Thee include social justice by addressing an aspect of technological language inequality, language perservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African langauge technology lies and mahcine translation and good clean datasets are the core.   
 
+% paint a future where robust speech-to-speech interfaces kick ass and allow everyone to speak freely
+
+
 All public-domain datasets referenced in this work are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI}}
 
 \subsubsection*{Acknowledgments}
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments, including those to funding agencies, go at the end of the paper.
+The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife for their encouragement, support and qualitative translations.
 
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
