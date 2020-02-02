@@ -46,53 +46,35 @@ Indiana, Pennsylvania, USA \\
 \maketitle
 
 \begin{abstract}
-Many Nigerian languages have lost their previous prestige and purpose in modern society due the status of English and Nigerian Pidgin. These language inequalities for L1 speakers manifest themselves in unequal access to information, connectivity, health care, security as well as attenuated participation in political and civic life. This work explores the feasibility of Neural Machine Translation (NMT) for the Edoid languages family of Southern Nigeria. Using public datasets, we trained and evaluated translation models for four widely spoken langauges in this group: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have been open-sourced to advance future research efforts on language technology for this minority language family.\\
-
-
+Many Nigerian languages have relinquished their previous prestige and purpose in modern society to English and Nigerian Pidgin. For the millions of L1 speakers of indigenous languages, there are inequalities that manifest themselves as unequal access to information, communications, health care, security as well as attenuated participation in political and civic life. To minimize exclusion and provide more access, this work explores the feasibility of Neural Machine Translation (NMT) for the Edoid language family of Southern Nigeria. Using the new JW300 public dataset, we trained and evaluated baseline translation models for four widely spoken languages in this group: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have been open-sourced to advance future research efforts on Edoid language technology.\\
 \end{abstract}
 
 \section{Introduction}
 
+% How language inequality came about
+Nigerian languages with primarily oral traditions have been the most susceptible to language endangerment. Numerous have already ceded privileged positions in society to English or Nigerian Pidgin. Unlike many East and South Asian societies, which preserved the socio-linguistic status of their indigenous languages for centuries under colonial rule, Nigerian tongues have not fared as well.
+% How language inequality affects people and indigenous language research
+For L1 speakers, this language inequality is further exacerbated in a technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for access to information, telecommunications, health care, security, economic advancement as well as participation in political and civic life \cite{odojelanguage, awobuluyi201626}. There are practical and technical challenges with respect to orthographic standardizations, consistent diacritic representation (Unicode) in electronic media and across device types. 
+
 % How can NMT help?
-Language technology has an enabling effect on society. However computational linguistics research has only addressed about 1\% of the world's languages. \citep{bird2012machine}. The disparity in 
+For almost-extinct languages, machine translation offers technology for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. % based on economic status, demography, location and language
 
-\citep{odoje201612}
+The objective of this paper is to report foundational NMT work to assist translators and the lay-person alike working in Edoid languages. We hope to bootstrap the development and sustenance of scholarly and literary traditions, beyond religious texts. By making our models and code broadly accessible as open-source projects, we hope to energize academic and industry interest while contributing tools of self- solution of disenfranchisement based on language and socio-economic barriers.
 
-Good Goveranance, language equality, access to information and the such.
 
-Machine translation  is relevant to the process of language documentation, preservation
+
+%From a research vantage, these languages have been labelled ``low resource" due to the scarcity of academic research, online-datasets, funding and interest, due to perceptions about the prestige and utility of these languages in contemporary African life  
+% Among other factors, the scarcity of highly esteemed works of literary scholarship has worked to devalue indigenous languages, making them susceptible to being replaced by other languages of power and status \citep{awobuluyi201626}. 
 
 \subsection{Languages}
 Belonging to the Volta-Niger family, and spoken by some 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. Urhobo and Isoko are classified as South-Western Edoid, while \d{\`E}d{\'o}, \d{\`E}s{\'a}n are classified as North-Central \citep{wikiedoid}.
 
 % Stats on population and literacy rates? other linguistic  
 % what do they have in common, what is different amonst them. Summarize
-
-% this is how language inequality came about
-Many Nigerian langauges, with primarily oral traditions and no comparable body of literary works, are the most susceptible to language extinction. Many have already ceded privileged positions in society to English or Nigerian Pidgin from colonial times. Nigeria is unlike many East and South Asian countries, which were under colonial rule for centuries longer but were able to keep the socio-linguistic status of their indigenious languages intact. The paucity of highly esteemed works of literary scholarship has worked to devalue our indigenious languages and made them susceptible to being replaced by other languages of power and status \citep{awobuluyi201626}. This current language inequality is further exacerbated in this technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for access to information, technology, health care and economic advancement. 
-
-% rephrase
-These language inequalities for L1 speakers manifest themselves in unequal access to information, connectivity, health care, security as well as attenuated participation in political and civic life.
-
-% talk more here about how the language inequality can be helped with language technology
-
-
-Most African languages have been labelled ``low resource". This is due in part to the limited body of academic research, lack of funding and online-datasets as well as low interest, due to preceptions about the prestige and utility of these languages in contemporary African life \cite{odojelanguage, awobuluyi201626}. Finally there are practical and technical challenges with respect to orthographic standardizations, consistent diacritic representation (Unicode) in electronic media and across device types. 
-
-work has been done on Edoid languages, this is in part due to the limited datasets, which is a function of a 
-
-The objective of this study is to carry out foundational work using current NMT techniques in a language family with rich oral traditions, to bootstrap the development and sustainance of scholarly and literary traditions in beyond religious texts. We seek to energize and promote interest in language technology research for these minority languages by publishing about them languages in a way that can compliment other remedial measures like education policy and political empowerment \citep{awobuluyi201626}.
-
+All these languages and tonal in nature, ie. have certain grammatical and tonal relationships, blah blah blah
 
 We contrast the performance of a baseline Transformer model across the four languages under study, examining the effect of word-level versus subword-level tokenization.
 
-
-
-% Why is this an asset to the whole MT community?
-% NMT performance as measured in WMT benchmark has plateaued and there is little to no difference between competing systems when evaluated on resource-rich languages. Massively-multilingual approaches are up and coming, but they require the existence of related large-scale resources for low-resource languages to benefit. (back this up by a citation!) 
-% Pseudo-low-resource data sets are used to evaluate ``low-resource'' approaches, because the access to truly low-resource data requires much more than just downloading a data set. The assets that Masakhane is creating, be it the experience in building a community, distributed research, or expertise in NLP for African languages specifically, will help MT researchers to work on new frontiers and aim for meaningful progress. (not just BLEU, uargh)
-
-%  All pre-trained models, datasets and source-code have been released as an open-source 
 
 % Strong oral traditions, mostly written works are Bibles, hymm books and dictionaries.
 %https://en.wikipedia.org/wiki/Urhobo-Isoko
@@ -106,7 +88,7 @@ While there has been recent interest in NMT for African languages, in Nigeria th
 \label{methods}
 
 \subsection{Dataset}
-The recently released JW300 dataset is a large-scale, parallel corpus for Machine Translation (MT) comprising more than three hundred languages of which 101 are African \citep{agic-vulic-2019-jw300}. English-\{\d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo, Isoko\} token pairs number \{10200, 2000, 200, 4000\} respectively. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines by Jehovah's Witnesses (JW).
+The recently released JW300 dataset is a large-scale, parallel corpus for Machine Translation (MT) comprising more than three hundred languages of which 101 are African \citep{agic-vulic-2019-jw300}. English-\{\d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo, Isoko\} token pairs cardinality is itemized in Table~\ref{results}.  \{10200, 2000, 200, 4000\} respectively. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines by Jehovah's Witnesses (JW).
 \subsection{Models}
 
 We used the JoeyNMT framework to train the Transformer. We built all models with the Python 3 implementation of \texttt{JoeyNMT}, an open-source toolkit created by the Klein et al. \citep{opennmt}. Our training hardware configuration was a standard AWS EC2 p2.xlarge instance with a NVIDIA K80 GPU, 4 vCPUs and 61GB RAM. Training the various models took place over the course of a few days.
@@ -117,22 +99,23 @@ We used the JoeyNMT framework to train the Transformer. We built all models with
 
 
 \begin{table}[h]
-\caption{Evaluation BLEU scores}
-\label{tab:results}
-\centering
+\caption{Per-language BLEU scores by BPE or word-level tokenization}
+\label{results}
+\begin{center}
 \begin{tabular}{c@{\qquad}ccc@{\qquad}ccc}
   \toprule
-  \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Language}}} & \multicolumn{2}{c}{\textbf{Word-level}} & \multicolumn{2}{c}{\textbf{BPE}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{Training Tokens}} \\
+  \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Language}}} & \multicolumn{2}{c}{\textbf{BPE}} & \multicolumn{2}{c}{\textbf{Word}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Training Tokens}}} \\
   \cmidrule{2-5}
   & dev & test & dev & test \\
   \midrule
-  \d{\`E}d{\'o}  & 10.0  & 0.01 & 30.1 & 11.8 &  100,000\\
-  \d{\`E}s{\'a}n & 11.22 & 20.4 & 30.9 & 11.9 & 300,300\\
+  \d{\`E}d{\'o}  & 7.92 & 12.49 & 5.99 & 8.24 &  229,307\\
+  \d{\`E}s{\'a}n & 4.94 & 6.25 & 3.39 & 5.30 & 87,025\\
     \midrule
-  Urhobo  & 11.33 & 1.342 & 33.4 & 11.2 & 3,000,000 \\
-  Isoko   & 11.22 & 12.99 & 13.4 & 11.7 & 4,000,000 \\
+  Urhobo  & 15.91 & 28.82 & 11.80 & 22.39 & 519,981 \\
+  Isoko   & 32.58 & 38.05 & 32.38 & 38.91 & 4,824,998 \\
   \bottomrule
 \end{tabular}
+\end{center}
 \end{table}
 
 \subsection{Qualitative}
@@ -157,6 +140,8 @@ Additional data and more diverse data definitely improves performance. Modern Te
 \subsection{Future Work}
 We see this work as a foundational effort on a few fronts. Thee include social justice by addressing an aspect of technological language inequality, language perservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African langauge technology lies and mahcine translation and good clean datasets are the core.   
 
+% Applications to film and cinema technology to automatically subtitle and translate Edoid language films.
+
 % paint a future where robust speech-to-speech interfaces kick ass and allow everyone to speak freely
 
 
@@ -167,5 +152,8 @@ The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife f
 
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
+\appendix
+\section{Appendix}
+You may include other additional sections here. 
 
 \end{document}
