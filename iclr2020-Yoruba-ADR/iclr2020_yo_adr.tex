@@ -15,6 +15,8 @@
 
 
 % This will be everyone who has (a) provided or cleaned text (b) contributed code
+%% TODO Everyone put their Affiliation, Take away Niger-Volta LTI, if you want, it was just there as a placeholder, given I don't know everyone's desired affiliation
+
 \author{David Ad{\'e}lan{\'i} \\
 Saarland University\\
 Niger-Volta LTI \\
@@ -67,7 +69,8 @@ Yor{\`u}b{\'a} is a tonal language spoken by more than 40 Million people in the 
 On modern computing and communication platforms, the majority of Yor{\`u}b{\'a} text is written in plain ASCII, without diacritics. This has negative implications for the quality of any Machine Translation (MT), Natural Language Processing (NLP) or Automatic Speech Recognition (ASR) task. To unlock the potential for a robust ecosystem of \emph{Yor{\`u}b{\'a}-first} language technologies, Yor{\`u}b{\'a} text must be correctly represented on current and future computing environments. The ultimate objective of automatic diacritic restoration (ADR) systems is to facilitate text entry and text correction that motivates and encourages the correct orthography and promotes quotidian usage of the language in electronic media.
 
 \subsection{Ambiguity in non-diacritized text}
-The main challenge in non-diacritized text is that it is very ambiguous \citep{orife2018adr, adegbola2012quantifying, asahiah2017restoring, de2007automatic}. ADR, which goes by other names such as Unicodification \citep{scannell2011statistical} or deASCIIfication \citep{arslan2016deasciification}, is a process which attempts to resolve the ambiguity present in undiacritized text. Adegbola et al. state that for ADR the ``prevailing error factor is the number of valid alternative arrangements of the diacritical marks that can be applied to the vowels and syllabic nasals within the words" \citep{adegbola2012quantifying}. Analogously to the analyses performed in \citep{orife2018adr}, we quantify the ambiguity in our current training set by the percentage of all words that have diacritics, 85\%; the percentage of unique non-diacritized word types that have two or more diacritized forms, 32\%, and the lexical diffusion or \emph{LexDif} metric, which conveys the average number of alternatives for each non-diacritized word, 1.47. IOHAVOC.
+The main challenge in non-diacritized text is that it is very ambiguous \citep{orife2018adr, adegbola2012quantifying, asahiah2017restoring, de2007automatic}. ADR, which goes by other names such as Unicodification \citep{scannell2011statistical} or deASCIIfication \citep{arslan2016deasciification}, is a process which attempts to resolve the ambiguity present in undiacritized text. Adegbola et al. state that for ADR the ``prevailing error factor is the number of valid alternative arrangements of the diacritical marks that can be applied to the vowels and syllabic nasals within the words" \citep{adegbola2012quantifying}. Analogously to the analyses performed in \citep{orife2018adr}, we quantify the ambiguity in our current training set by the percentage of all words that have diacritics, 85\%; the percentage of unique non-diacritized word types that have two or more diacritized forms, 32\%, and the lexical diffusion or \emph{LexDif} metric, which conveys the average number of alternatives for each non-diacritized word, 1.47.
+% TODO IRORO, to provide the above figures. Not sure if we need to be soo wordy given the template is 2 pages + references + Appendix.
 
 \begin{table}[t]
 \caption{Diacritic characters with their non-diacritic forms}
@@ -123,6 +126,7 @@ This medium sized corpus comprises a number of texts used in a recent word embed
 
 \item \textbf{Private texts}: In addition to the public domain texts, the authors also had access to personal archives of written work, correctly tone-marked that would add some meaningful diversity to the corpus. These included transcription of interviews and long form stories. These texts numbered some three hundred thousand tokens.
 
+% TODO We should delete this part since, I don't really know what Timi did. I asked him for something we can use in December, but he hasn't given it, so I'm not sure it makes sense to include this.
 \item \textbf{{Yor{\`u}b{\'a} Object Character Recognition (OCR)}}: Another direction explored by the authors, was the use of Object Character Recognition (OCR).  This is the process of scanning physical books to derive plain text from the scanned images. However the presence of diacritics in Yor{\`u}b{\'a} books presents problems for English OCR models. So we retrained a new Yor{\`u}b{\'a} OCR model using existing clean text. TIMI elborate here on what was done. Feel free to blow grammer and give technical details.\. We bootstrapped our Háà Ènìyàn efforts, Ogboju Ode as well as Aaro Meta.
 \end{itemize}
 
@@ -156,21 +160,23 @@ This medium sized corpus comprises a number of texts used in a recent word embed
 \end{table}
 
 \subsection{Experimental setup}\label{sec:experimental}
-
- When collecting data from disparate sources, we preprocessed texts to ensure consistent, error-free diacritization, splitting lines on full-stops to give one sentence per line. To ensure our splits are drawn from similar distributions, we combined all text, shuffled and split utterances into a ratio of 90\%, 10\%, for training and dev sets respectively.   
+% TODO we need to write this properly
+When collecting data from disparate sources, we preprocessed texts to ensure consistent, error-free diacritization, splitting lines on full-stops to give one sentence per line. To ensure our splits are drawn from similar distributions, we combined all text, shuffled and split utterances into a ratio of 90\%, 10\%, for training and dev sets respectively.  
 
 To prepare source and target texts for parallel training via a sequence-to-sequence architecture, all characters in the texts were dispossessed of their diacritics. Diacritized text was converted to Unicode Normalization Form Canonical Decomposition (NFD) which separates a base character from its diacritics. Next, \emph{UnicodeCategory.NonSpacingMark} characters, which house the diacritic modifications to a character, were filtered out. This yielded two sets of text, one stripped of diacritics (the source) and the other with full diacritics (the training target). 
 
 To better understand the dataset split, we computed a perplexity of 575.6 for the test targets with a language model trained over the training targets \citep{stolcke2002srilm}. The \{source, target\} vocabularies for training and test sets have \{11857, 18979\} and \{4042, 5641\} word types respectively.
 
 \subsection{Using pre-trained text embeddings}
+% TODO David, we need to write this properly
 TEXT TO FIX and TO DESCRIBE DAVID's FastText, BERT and XLM embeddings. FastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddings.
 
 
 \subsection{A new, modern multi-purpose evaluation dataset}\label{sec:evaldataset}
-
+% TODO we need to write this properly
 Here we discuss in detail the selection of Iroyin, perhaps present some facts and figures about it, to better understand why it is a good evaluation set and to motivate how we converged on it being the best text subset. Modern, non-archaic text, popular usage and a better proxy than any of the religious centered texts (JW300, Bibeli, etc) and less formal.
 
+% TODO we need to write this properly
 Global Voices is a multilingual community of journalists, translators, bloggers, academics and human rights activists. Their newsroom articles are translated into dozens of languages. We used a web-scrape of their Yor{\`u}b{\'a} articles comprising some twenty-eight thousand tokens.
 
 In the previous paper, the test set was selected as a subset of the total available dataset, this means that the test and validation sets, drew generally speaking from the same distribution as the training set, this explains the stellar performance reported in Orife, 2018. However, we need our evaluation set to be a (1) public (2) representative of a mixture of modern written and spoken Yoruba styles (3) large enough. 
@@ -179,33 +185,34 @@ From the texts that we had available, including interviews, journalistic news, l
 
 
 \subsection{Training}\label{sec:training}
-ino
+% TODO IRORO need to write this properly
 
 \section{Results}\label{sec:results}
-
+% TODO IRORO need to write this properly
 
 The dev set will be the test set drawn from the training data's distribution. Test set will be Iroyin as described above. We should match the figures published in \citep{orife2018adr} with the current figure to tell a consistent story. Even though the test set has changed, we should still evaluate the legacy models on it to show how badly it geneneralized even thought it had very good in-domain performance.
 
-
+% TODO IRORO DAVID these results can go in the Appendix --> we need to write this properly
 To evaluate the performance of our ADR models, we computed the accuracy score as the ratio of correct words restored to all words. We calculate the perplexity of each model's predictions based on the test set targets.
  \begin{table}[h]
   \caption{Training \& Test Accuracy and Perplexity}
   \label{tab:results}
   \centering
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lcc}
     \toprule
-    \textbf{Model} & \textbf{Train\%} & \textbf{Dev\%} & \textbf{Test\%} &\textbf{PPL} \\
+    \textbf{Model} & \textbf{Accuracy \%} &\textbf{Perplexity} \\
     \midrule
-    Baseline RNN & 96.2 & 90.1 & 90.1 & 1.68 \\
-    Bandahau from [1] & 95.9 & 90.1 & 90.1 & 1.85 \\
+    Baseline RNN (?) & 90.1 & 1.68 \\
+    Baseline Bandahau & 90.1 & 1.85 \\
     \midrule
-	Bandahau++ & - & - & - & - \\ 
-	Transformer++ & - & - & - & - \\ 
+	Bandahau+ & 90.1 & 1.9 \\ 
+	Transformer+ & 90.1 & 1.9 \\ 
+    \midrule
+	Bandahau+JW300 & 90.1 & 1.9 \\ 
+	Transformer+JW300 & 90.1 & 1.9 \\ 
 	\midrule
-	Transformer++ FastText & - & - & - & - \\ 
-	Transformer++ BERT & - & - & - & - \\ 
-	Transformer++ XLM & - & - & - & - \\ 
-
+	Bandahau+JW300+FastText & 90.1 & 1.9 \\ 
+	Transformer+JW300+FastText & 90.1 & 1.9 \\ 
     \bottomrule
   \end{tabular}
 \end{table}
@@ -215,7 +222,6 @@ Discussion of results. Discussion of results. Discussion of results. Discussion 
 While performing error analyses on the model predictions, we observed: DESCRIBE YOUR OBSERVATIONS
 
 \section{Conclusions}
-
 
 \subsection{Discussion} %a.k.a lessons learned
 Additional data and more diverse data definitely improves performance. Modern Text embeddings provide an additional boost in accuracy (TBD).
@@ -229,15 +235,59 @@ Additional data and more diverse data definitely improves performance. Modern Te
 All public-domain datasets referenced in this work are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-text}} \footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-adr}}
 
 \subsubsection*{Acknowledgments}
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments, including those to funding agencies, go at the end of the paper.
-
+% TODO IRORO DAVID Who else are we thanking?  
+We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria. 
 
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
 
 \appendix
 \section{Appendix}
-You may include other additional sections here. 
+You may include other additional results here. 
+
+ \begin{table}[h]
+  \caption{Training \& Test Accuracy and Perplexity}
+  \label{tab:results-appendix}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    \textbf{Model} & \textbf{Accuracy \%} &\textbf{Perplexity} \\
+    \midrule
+    Baseline RNN (?) & 90.1 & 1.68 \\
+    Baseline Bandahau & 90.1 & 1.85 \\
+    \midrule
+	Bandahau+ & 90.1 & 1.9 \\ 
+	Transformer+ & 90.1 & 1.9 \\ 
+    \midrule
+	Bandahau+JW300 & 90.1 & 1.9 \\ 
+	Transformer+JW300 & 90.1 & 1.9 \\ 
+	\midrule
+	Bandahau+JW300+FastText & 90.1 & 1.9 \\ 
+	Transformer+JW300+FastText & 90.1 & 1.9 \\ 
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{Examples of diacritic restoration - Put in proper table}
+\label{ambiguity-table-appendix}
+\begin{center}
+  \begin{tabular}{lcl}
+    \multicolumn{2}{c}{\bf Characters} & \textbf{Examples}  \\
+	 \hline \\
+    {\`a} {\'a} \v{a} & \textbf{a} & gb{\`a} \emph{(spread)}, gba \emph{(accept)}, gb{\'a} \emph{(hit)}    \\  
+    {\`e} {\'e} \d{e} \d{\`e} \d{\'e} & \textbf{e} & {\`e}s{\`e} \emph{(dye)}, \d{e}s\d{\`e} \emph{(foot)}, es{\'e} \emph{(cat)}\\
+    {\`i} {\'i} & \textbf{i} & {\`i}l{\`u} \emph{(drum)}, ilu \emph{(opener)}, {\`i}l{\'u} \emph{(town)}\\  
+    {\`o} {\'o} \d{o} \d{\`o} \d{\'o} \v{o} & \textbf{o} & ar\d{o} \emph{(an invalid)}, ar{\'o} \emph{(indigo)}, {\`a}r{\`o} \emph{(hearth)}, {\`a}r\d{o} \emph{(funnel)}, {\`a}r\d{\`o} \emph{(catfish)}\\  
+    {\`u} {\'u} \v{u} & \textbf{u} & k{\`u}n \emph{(to paint)}, kun \emph{(to carve)}, k{\'u}n \emph{(be full)} \\
+	\hline \\
+    {\`n} {\'n} \={n} & \textbf{n} & {\`n} (a negator), {n} \emph{(I)}, {\'n} (continuous aspect marker) \\  
+    \d{s} & \textbf{s} &  \d{s}{\`a} \emph{(to choose)}, \d{s}{\'a} \emph{(fade)}, {s}{\`a} \emph{(to baptise)}, {s}{\'a} \emph{(to run)}\\  
+	\hline \\
+  \end{tabular}
+\end{center}
+\end{table}
+
+
 
 \end{document}
