@@ -45,29 +45,33 @@ Indiana, Pennsylvania, USA \\
 
 \maketitle
 
-\begin{abstract}
-Many Nigerian languages have relinquished their previous prestige and purpose in modern society to English and Nigerian Pidgin. For the millions of L1 speakers of indigenous languages, there are inequalities that manifest themselves as unequal access to information, communications, health care, security as well as attenuated participation in political and civic life. To minimize exclusion and provide more access, this work explores the feasibility of Neural Machine Translation (NMT) for the Edoid language family of Southern Nigeria. Using the new JW300 public dataset, we trained and evaluated baseline translation models for four widely spoken languages in this group: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have been open-sourced to advance future research efforts on Edoid language technology.\\
-\end{abstract}
+%\begin{abstract}
+%Many Nigerian languages have   Using the new JW300 public dataset, we trained and evaluated baseline translation models for four widely spoken languages: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have been open-sourced to advance future research efforts on Edoid language technology.\\
+
+%Given the empowering potential of language technology, we investigate the feasibility of Neural Machine Translation (NMT) for speakers of Edoid languages of Southern Nigeria.
+%\end{abstract}
 
 \section{Introduction}
 
 % How language inequality came about
-Nigerian languages with primarily oral traditions have been the most susceptible to language endangerment. Numerous have already ceded privileged positions in society to English or Nigerian Pidgin. Unlike many East and South Asian societies, which preserved the socio-linguistic status of their indigenous languages for centuries under colonial rule, Nigerian tongues have not fared as well.
+Many of the over 500 languages are spoken in Nigeria today have relinquished their previous prestige and purpose in modern society to English and Nigerian Pidgin, notably amongst the younger generations. Unlike numerous East and South Asian societies, which preserved the socio-linguistic status of their indigenous languages, for centuries under colonial rule, Nigerian communities with primarily oral traditions have been the most susceptible to language endangerment \citep{rolle2013phonetics}.
+
 % How language inequality affects people and indigenous language research
-For L1 speakers, this language inequality is further exacerbated in a technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for access to information, telecommunications, health care, security, economic advancement as well as participation in political and civic life \cite{odojelanguage, awobuluyi201626}. There are practical and technical challenges with respect to orthographic standardizations, consistent diacritic representation (Unicode) in electronic media and across device types. 
+For tens of millions of speakers, language inequalities manifest themselves as unequal access to information, communications, health care, security along with attenuated participation in political and civic life. These inequities are further exacerbated in a technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for economic advancement \citep{odojelanguage, awobuluyi201626}. Finally, there have been practical and technical challenges in language technology for indigenous languages like orthographic standardizations and consistent diacritic representation (Unicode) in electronic media and across device types. 
 
 % How can NMT help?
-For almost-extinct languages, machine translation offers technology for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. % based on economic status, demography, location and language
+For almost-extinct languages, machine translation offers hope for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. Using the new JW300 public dataset, we trained and evaluated baseline translation models for four of the widely spoken Edoid languages: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. 
 
-The objective of this paper is to report foundational NMT work to assist translators and the lay-person alike working in Edoid languages. We hope to bootstrap the development and sustenance of scholarly and literary traditions, beyond religious texts. By making our models and code broadly accessible as open-source projects, we hope to energize academic and industry interest while contributing tools of self- solution of disenfranchisement based on language and socio-economic barriers.
-
-
+% based on economic status, demography, location and language
 
 %From a research vantage, these languages have been labelled ``low resource" due to the scarcity of academic research, online-datasets, funding and interest, due to perceptions about the prestige and utility of these languages in contemporary African life  
 % Among other factors, the scarcity of highly esteemed works of literary scholarship has worked to devalue indigenous languages, making them susceptible to being replaced by other languages of power and status \citep{awobuluyi201626}. 
 
 \subsection{Languages}
-Belonging to the Volta-Niger family, and spoken by some 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. Urhobo and Isoko are classified as South-Western Edoid, while \d{\`E}d{\'o}, \d{\`E}s{\'a}n are classified as North-Central \citep{wikiedoid}.
+Belonging to the Volta-Niger family, and spoken by some 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, \d{\`E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{wikiedoid}.
+
+Edoid langauges are all tonal in nature, featuring multiple rising, falling and gliding tones for grammatical and lexical, syntacticpurposes toneach with a variety of dialects
+Esan  is an analytic language  with very little  morphology, and maintains a  canonical SVO word order.  
 
 % Stats on population and literacy rates? other linguistic  
 % what do they have in common, what is different amonst them. Summarize
@@ -75,12 +79,10 @@ All these languages and tonal in nature, ie. have certain grammatical and tonal 
 
 We contrast the performance of a baseline Transformer model across the four languages under study, examining the effect of word-level versus subword-level tokenization.
 
+Kurdish is an Indo-European language mainly spoken in central and eastern Turkey, northern Iraq andSyria, and western Iran. It is a less-resourced language (Salavati and Ahmadi, 2018), in other words,a language for which general-purpose grammars and raw internet-based corpora are the main existingresources. The language is spoken in five main dialects, namely, Kurmanji (aka Northern Kurdish),Sorani (aka Central Kurdish), Southern Kurdish, Zazaki and Gorani (Haig and Öpengin, 2014).Creatinglexicaldatabasesandtextcorporaareessentialtasksinnaturallanguageprocessing(NLP)de-velopment. Text corpora are knowledge repositories which provide semantic descriptions of words. TheKurdish language lacks diverse corpora in both raw and annotated forms (Esmaili et al., 2013; Hassani,2018). According to the literature, there is no domain-specific corpus for Kurdish
 
 % Strong oral traditions, mostly written works are Bibles, hymm books and dictionaries.
 %https://en.wikipedia.org/wiki/Urhobo-Isoko
-
-\subsection{Related Works}
-
 While there has been recent interest in NMT for African languages, in Nigeria there has been a bit of literature on Rule-based, phrase-based and Statistical machine translation. This is the first work known to the authors done in any of the Edoid langauges specifically for machine translation.
 
 
@@ -97,27 +99,6 @@ We used the JoeyNMT framework to train the Transformer. We built all models with
 \label{results}
 
 
-
-\begin{table}[h]
-\caption{Per-language BLEU scores by BPE or word-level tokenization}
-\label{results}
-\begin{center}
-\begin{tabular}{c@{\qquad}ccc@{\qquad}ccc}
-  \toprule
-  \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Language}}} & \multicolumn{2}{c}{\textbf{BPE}} & \multicolumn{2}{c}{\textbf{Word}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Training Tokens}}} \\
-  \cmidrule{2-5}
-  & dev & test & dev & test \\
-  \midrule
-  \d{\`E}d{\'o}  & 7.92 & 12.49 & 5.99 & 8.24 &  229,307\\
-  \d{\`E}s{\'a}n & 4.94 & 6.25 & 3.39 & 5.30 & 87,025\\
-    \midrule
-  Urhobo  & 15.91 & 28.82 & 11.80 & 22.39 & 519,981 \\
-  Isoko   & 32.58 & 38.05 & 32.38 & 38.91 & 4,824,998 \\
-  \bottomrule
-\end{tabular}
-\end{center}
-\end{table}
-
 \subsection{Qualitative}
 
 % Dad's view on the concepts 
@@ -130,19 +111,14 @@ heading and 1/2~line space after the second level heading.
 \subsection{Error Analysis}
 While performing error analyses on the model predictions, we observed: DESCRIBE YOUR OBSERVATIONS
 
-\section{Conclusions}
+\section{Future Work and Conclusions}
+Fertile avenues for future work include acquiring more data, hyper-parameter optimization and experiments with Backtranslation, different tokenization approaches as well as specific consideration of linguistic knowledge. For example, the analytic nature of Edoid languages and low morpheme-per-word ratio might inform a novel tokenization approach.
 
-
-\subsection{Discussion}
-Additional data and more diverse data definitely improves performance. Modern Text embeddings will also provide an additional boost in accuracy. Overall more studies are needed regarding algorithmic preprocessing and hyperparamter fine-tuning. For example, we naively saw that for the smaller corpora BPE tokenization gave a slight boost in BLEU performance, while 
-
-
-\subsection{Future Work}
-We see this work as a foundational effort with numerous avenues for future exploration, with the objective of moving quickly from pure research to applications. These include 
-
-Backtranslation, hyper-parameter optimization, character, sub-word and word-level tokenization experiments. 
+ The objective of this paper was to report preliminary efforts to assist translators and the lay-person alike, working in Edoid languages. We hope to bootstrap the development and sustenance of scholarly and literary traditions, beyond religious texts. By making our models and code broadly accessible as open-source projects, we hope to energize academic and industry interest broader language technology for socio-linguistic and economic empowerment.`
  
- Thee include social justice by addressing an aspect of technological language inequality, language perservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African langauge technology lies and mahcine translation and good clean datasets are the core.   
+% Thee include social justice by addressing an aspect of technological language inequality, language perservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African langauge technology lies and mahcine translation and good clean datasets are the core.   
+% 
+
 
 % Applications to film and cinema technology to automatically subtitle and translate Edoid language films.
 
@@ -158,6 +134,27 @@ The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife f
 \bibliographystyle{iclr2020_conference}
 \appendix
 \section{Appendix}
-You may include example translations. 
+
+
+\begin{table}[h]
+\caption{Per-language BLEU scores by BPE or word-level tokenization}
+\label{results}
+\begin{center}
+\begin{tabular}{c@{\qquad}ccc@{\qquad}ccc}
+  \toprule
+  \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Lang}}} & \multicolumn{2}{c}{\textbf{BPE}} & \multicolumn{2}{c}{\textbf{Word}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Tokens}}} & 
+  	 \\
+  \cmidrule{2-5}
+  & dev & test & dev & test \\
+  \midrule
+  \d{\`E}d{\'o}  & 7.92 & 12.49 & 5.99 & 8.24 &  229,307 & 10,188 \\
+  \d{\`E}s{\'a}n & 4.94 & 6.25 & 3.39 & 5.30 & 87,025 & 4,128 \\
+    \midrule
+  Urhobo  & 15.91 & 28.82 & 11.80 & 22.39 & 519,981 & 214,546 \\
+  Isoko   & 32.58 & 38.05 & 32.38 & 38.91 & 4,824,998 & 25,610 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\end{table}
 
 \end{document}
