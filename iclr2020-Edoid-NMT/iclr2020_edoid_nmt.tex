@@ -11,6 +11,8 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 
+\def\UrlBreaks{\do\/\do-}
+
 \title{Towards Neural Machine Translation \\ for Edoid Languages}
 
 % Authors must not appear in the submitted version. They should be hidden
@@ -54,13 +56,13 @@ Indiana, Pennsylvania, USA \\
 \section{Introduction}
 
 % How language inequality came about
-Many of the over 500 languages are spoken in Nigeria today have relinquished their previous prestige and purpose in modern society to English and Nigerian Pidgin, notably amongst the younger generations. Unlike numerous East and South Asian societies, which preserved the socio-linguistic status of their indigenous languages, for centuries under colonial rule, Nigerian communities with primarily oral traditions have been the most susceptible to language endangerment \citep{rolle2013phonetics}.
+Many of the over 500 languages are spoken in Nigeria today have relinquished their previous prestige and purpose in modern society to English and Nigerian Pidgin, notably amongst the younger generations. Unlike numerous East and South Asian societies, which preserved the socio-linguistic status of their indigenous languages, for centuries under colonial rule, Nigerian communities with primarily oral traditions have been the most susceptible to language endangerment \citep{rolle2013phonetics, omo2004esan}.
 
 % How language inequality affects people and indigenous language research
-For tens of millions of speakers, language inequalities manifest themselves as unequal access to information, communications, health care, security along with attenuated participation in political and civic life. These inequities are further exacerbated in a technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for economic advancement \citep{odojelanguage, awobuluyi201626}. Finally, there have been practical and technical challenges in language technology for indigenous languages like orthographic standardizations and consistent diacritic representation (Unicode) in electronic media and across device types. 
+For tens of millions of speakers, language inequalities manifest themselves as unequal access to information, communications, health care, security along with attenuated participation in political and civic life. These inequities are further exacerbated in a technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for economic advancement \citep{odojelanguage, awobuluyi201626, ganagana2019contrastive}. Finally, there have been practical and technical challenges in language technology for indigenous languages like orthographic standardizations and consistent diacritic representation (Unicode) in electronic media and across device types. 
 
 % How can NMT help?
-For almost-extinct languages, machine translation offers hope for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. Using the new JW300 public dataset, we trained and evaluated baseline translation models for four of the widely spoken Edoid languages: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. 
+For almost-extinct languages, machine translation offers hope for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. Using the new JW300 public dataset, we trained and evaluated baseline Neural Machine Translation (NMT) models for four of the widely spoken Edoid languages: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. 
 
 % based on economic status, demography, location and language
 
@@ -68,48 +70,44 @@ For almost-extinct languages, machine translation offers hope for language docum
 % Among other factors, the scarcity of highly esteemed works of literary scholarship has worked to devalue indigenous languages, making them susceptible to being replaced by other languages of power and status \citep{awobuluyi201626}. 
 
 \subsection{Languages}
-Belonging to the Volta-Niger family, and spoken by some 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, \d{\`E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{wikiedoid}.
 
-Edoid langauges are all tonal in nature, featuring multiple rising, falling and gliding tones for grammatical and lexical, syntacticpurposes toneach with a variety of dialects
-Esan  is an analytic language  with very little  morphology, and maintains a  canonical SVO word order.  
+% Edo: 2.5M \\
+% Esan: 500k \\
+% Urhobo: 500k - 1.5M/2M
+% Isoko: 658,000 
 
-% Stats on population and literacy rates? other linguistic  
-% what do they have in common, what is different amonst them. Summarize
-All these languages and tonal in nature, ie. have certain grammatical and tonal relationships, blah blah blah
+Belonging to the eastern sub-branch of the Volta-Niger family within the Niger-Congo phylum, and spoken by approximately 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, \d{\`E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{wiki_Edoid}. These languages were selected based on the availability of text and because they are the most widely spoken.
 
-We contrast the performance of a baseline Transformer model across the four languages under study, examining the effect of word-level versus subword-level tokenization.
+Edoid langauges generally employ the SVO constituent order type, open syllable systems with very few consonant clusters. At least two basic tone levels, high (H) and low (L), though ``the phonetic and phonological implementation of this system is in fact complex and difficult to pin down" \citep{rolle2013phonetics, ogie2009multi, adeniyi2010tone, ilolo2013vowel}. Tone patterns serve lexical and grammatical purposes with only verbs bearing the grammatical tone. Additionally, kinetic, downstepped and contour tones are variously used. Nasalisation is very common for both vowels and consonants \citep{Elugbe_1989, isoko_phonetics, ikoyo2018phonetic}. 
 
-Kurdish is an Indo-European language mainly spoken in central and eastern Turkey, northern Iraq andSyria, and western Iran. It is a less-resourced language (Salavati and Ahmadi, 2018), in other words,a language for which general-purpose grammars and raw internet-based corpora are the main existingresources. The language is spoken in five main dialects, namely, Kurmanji (aka Northern Kurdish),Sorani (aka Central Kurdish), Southern Kurdish, Zazaki and Gorani (Haig and Öpengin, 2014).Creatinglexicaldatabasesandtextcorporaareessentialtasksinnaturallanguageprocessing(NLP)de-velopment. Text corpora are knowledge repositories which provide semantic descriptions of words. TheKurdish language lacks diverse corpora in both raw and annotated forms (Esmaili et al., 2013; Hassani,2018). According to the literature, there is no domain-specific corpus for Kurdish
+% urban  centers  of  Urhoboland  such  as  Effurun,  Sapele,  Ughelli,  and  Warri  do  not  use  and/or  speak  the  language. 
+%For these reasons, speaker populatioin greater than acutally speakers, and low usage in the young, we consider one should consider the Edoid languages as highly endangered, inspite a large speaker population \citep{rolle2013phonetics}.
+%A language can only resist death/extinction if it is able to move from the status of oracy to awritten status. Okojie (1994) 
 
-% Strong oral traditions, mostly written works are Bibles, hymm books and dictionaries.
-%https://en.wikipedia.org/wiki/Urhobo-Isoko
-While there has been recent interest in NMT for African languages, in Nigeria there has been a bit of literature on Rule-based, phrase-based and Statistical machine translation. This is the first work known to the authors done in any of the Edoid langauges specifically for machine translation.
+While there has been recent interest in NMT for African languages, in Nigeria there is literature rule, phrase and statistical machine translation systems for majority tongues of Yor{\`u}b{\'a}, Igbo and Hausa. The present study is the first work known to the authors done in computational linguistics for any of the Edoid langauges, specifically for machine translation.
 
 
 \section{Methodology}
 \label{methods}
 
 \subsection{Dataset}
-The recently released JW300 dataset is a large-scale, parallel corpus for Machine Translation (MT) comprising more than three hundred languages of which 101 are African \citep{agic-vulic-2019-jw300}. English-\{\d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo, Isoko\} token pairs cardinality is itemized in Table~\ref{results}.  \{10200, 2000, 200, 4000\} respectively. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines by Jehovah's Witnesses (JW).
-\subsection{Models}
+The recently released JW300 dataset is a large-scale, parallel corpus for Machine Translation (MT) comprising more than three hundred languages of which 101 are African \citep{agic-vulic-2019-jw300}. English-\{\d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo, Isoko\} token pairs cardinality is itemized in Appendix Table~\ref{results}. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines by Jehovah's Witnesses (JW).
 
-We used the JoeyNMT framework to train the Transformer. We built all models with the Python 3 implementation of \texttt{JoeyNMT}, an open-source toolkit created by the Klein et al. \citep{opennmt}. Our training hardware configuration was a standard AWS EC2 p2.xlarge instance with a NVIDIA K80 GPU, 4 vCPUs and 61GB RAM. Training the various models took place over the course of a few days.
+\subsection{Models}
+The open-source, Python 3 machine translation toolkit \texttt{JoeyNMT} was used to train models based on the Transformer architecture, the dominant modeling approach for NMT. The Transformer uses an encoder-decoder structure with stacked multi-head self-attention and fully connected layers \citep{JoeyNMT, NIPS2017_7181}. Our training hardware was the standard free-tier configuration on Google Colaboratory, a single core 2.30GHz Xeon CPU instance and a Tesla K80 GPU with 2496 CUDA cores and 11.4GB RAM. Training the various models took place over the course of a few days, as experiments were repeated for tokenization experiments.
 
 \section{Results}
 \label{results}
 
+We contrast the performance of a baseline Transformer model across the four languages under study, examining the effect of word-level versus subword-level tokenization.
 
 \subsection{Qualitative}
 
 % Dad's view on the concepts 
-Unsuprisingly, for Urhobo and Isoko which are much better resourced, the BLEU scores are generally correlated with the translation quality when reviewed by L1 speakers. For example, for Urhobo this translation captures much o
-
-Second level headings are in small caps,
-flush left and in point size 10. One line space before the second level
-heading and 1/2~line space after the second level heading.
+Unsuprisingly, for Urhobo and Isoko which are much better resourced, the BLEU scores are generally correlated with the translation quality when reviewed by L1 speakers. For example, for Urhobo this translation captures much. Additional examples are listed in the Appendix.
 
 \subsection{Error Analysis}
-While performing error analyses on the model predictions, we observed: DESCRIBE YOUR OBSERVATIONS
+While performing error analyses on the model predictions, we observed predictions that included  dataset requires more preprocessing to remove scriptural chapter and verse text.  chapters\/verse names and figures. This will make the model more generally useful outside of religious text translations.
 
 \section{Future Work and Conclusions}
 Fertile avenues for future work include acquiring more data, hyper-parameter optimization and experiments with Backtranslation, different tokenization approaches as well as specific consideration of linguistic knowledge. For example, the analytic nature of Edoid languages and low morpheme-per-word ratio might inform a novel tokenization approach.
@@ -131,10 +129,12 @@ All public-domain datasets referenced in this work are available on GitHub.\foot
 The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife for their encouragement, support and qualitative translations.
 
 \bibliography{iclr2020_conference}
-\bibliographystyle{iclr2020_conference}
+\bibliographystyle{iclr2020_conference}
+
+\clearpage
+
 \appendix
 \section{Appendix}
-
 
 \begin{table}[h]
 \caption{Per-language BLEU scores by BPE or word-level tokenization}
@@ -142,7 +142,7 @@ The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife f
 \begin{center}
 \begin{tabular}{c@{\qquad}ccc@{\qquad}ccc}
   \toprule
-  \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Lang}}} & \multicolumn{2}{c}{\textbf{BPE}} & \multicolumn{2}{c}{\textbf{Word}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Tokens}}} & 
+  \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Lang}}} & \multicolumn{2}{c}{\textbf{BPE}} & \multicolumn{2}{c}{\textbf{Word}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Tokens}}} & \multirow{2}{*}{\raisebox{-\heavyrulewidth}{\textbf{Sentences}}}
   	 \\
   \cmidrule{2-5}
   & dev & test & dev & test \\
@@ -153,7 +153,59 @@ The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife f
   Urhobo  & 15.91 & 28.82 & 11.80 & 22.39 & 519,981 & 214,546 \\
   Isoko   & 32.58 & 38.05 & 32.38 & 38.91 & 4,824,998 & 25,610 \\
   \bottomrule
-\end{tabular}
+  \end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\caption{Example Translations}
+\label{results}
+\begin{center}
+  \begin{tabular}{ll}
+     \textbf{\d{\`E}d{\'o}}  & \\
+     \toprule
+     \toprule
+	 Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference: & Ghele na , eme unu - uwou u re fi obọ họ gaga evaọ eruo udhedhẹ \\
+	 Prediction: & Ghele na , eme unu - uwou yọ ẹgba ologbo nọ ma re ro ru udhedhẹ \\
+     \midrule
+	 Source:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Reference: &  Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ kẹ omai eva efuafo \\
+	 Prediction: & Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ ma omai eva efuafo \\ 
+     \\
+     \textbf{\d{\`E}s{\'a}n}  & \\
+     \toprule
+     \toprule
+	 Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference: & Ghele na , eme unu - uwou u re fi obọ họ gaga evaọ eruo udhedhẹ \\
+	 Prediction: & Ghele na , eme unu - uwou yọ ẹgba ologbo nọ ma re ro ru udhedhẹ \\
+     \midrule
+	 Source:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Reference: &  Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ kẹ omai eva efuafo \\
+	 Prediction: & Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ ma omai eva efuafo \\ 
+	\\
+     \textbf{Urhobo}  & \\
+    \toprule
+    \toprule
+	 Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference: & Ghele na , eme unu - uwou u re fi obọ họ gaga evaọ eruo udhedhẹ \\
+	 Prediction: & Ghele na , eme unu - uwou yọ ẹgba ologbo nọ ma re ro ru udhedhẹ \\
+     \midrule
+	 Source:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Reference: &  Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ kẹ omai eva efuafo \\
+	 Prediction: & Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ ma omai eva efuafo \\ 
+     \\
+     \textbf{Isoko}  & \\
+    \toprule
+    \toprule
+	 Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference: & Ghele na , eme unu - uwou u re fi obọ họ gaga evaọ eruo udhedhẹ \\
+	 Prediction: & Ghele na , eme unu - uwou yọ ẹgba ologbo nọ ma re ro ru udhedhẹ \\
+  \midrule
+	 Source:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Reference: &  Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ kẹ omai eva efuafo \\
+	 Prediction: & Ma rẹ sae tubẹ yare Ọghẹnẹ re ọ ‘ ma omai eva efuafo \\ 
+  \end{tabular}
 \end{center}
 \end{table}
 
