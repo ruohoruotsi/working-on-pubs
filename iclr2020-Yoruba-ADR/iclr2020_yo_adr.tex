@@ -52,27 +52,28 @@ Yor{\`u}b{\'a} Name \\
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
 
-\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+%\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
 \begin{document}
 
 
 \maketitle
 
-\begin{abstract}
-Yor{\`u}b{\'a} is a widely spoken West African language with a writing system rich in orthographic and tonal diacritics. They provide morphological information, are crucial for lexical disambiguation, pronunciation and are vital for any computational Speech or Natural Language Processing  tasks. However diacritic marks are commonly excluded from electronic texts due to limited device and application support as well as general education on proper usage. Building on our previous work, we report on recent efforts at dataset cultivation. By aggregating and improving disparate texts from the web and various personal libraries, we were able to significantly grow our clean Yor{\`u}b{\'a} dataset from a majority Bibilical text corpora from three sources to millions of tokens from over a dozen sources. We evaluate updated diacritic restoration models on a new, general purpose, public domain Yor{\`u}b{\'a} dataset of modern journalistic news text, selected to be a multi-purpose corpus reflecting contemporary usage. All pre-trained models, datasets and source-code have been released as an open-source project to advance efforts on Yor{\`u}b{\'a} language technology.\\
-\end{abstract}
+% \begin{abstract}
+% Yor{\`u}b{\'a} is a widely spoken West African language with a writing system rich in orthographic and tonal diacritics. They provide morphological information, are crucial for lexical disambiguation, pronunciation and are vital for any computational Speech or Natural Language Processing  tasks. However diacritic marks are commonly excluded from electronic texts due to limited device and application support as well as general education on proper usage. Building on our previous work, we report on recent efforts at dataset cultivation. By aggregating and improving disparate texts from the web and various personal libraries, we were able to significantly grow our clean Yor{\`u}b{\'a} dataset from a majority Bibilical text corpora from three sources to millions of tokens from over a dozen sources. We evaluate updated diacritic restoration models on a new, general purpose, public domain Yor{\`u}b{\'a} dataset of modern journalistic news text, selected to be a multi-purpose corpus reflecting contemporary usage. All pre-trained models, datasets and source-code have been released as an open-source project to advance efforts on Yor{\`u}b{\'a} language technology.\\
+% \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
 
-Yor{\`u}b{\'a} is a tonal language spoken by more than 40 Million people in the countries of Nigeria, Benin and Togo in West Africa. There are an additional million speakers in the African diaspora, making it the most broadly spoken African language outside Africa \citep{yoruba_language}. The phonology is comprised of eighteen consonants \emph{({b}, {d}, {f}, {g}, {gb}, {h}, {j}, {k}, {l}, {m}, {n}, {p}, {r}, {s}, \d{s}, {t}, {w}, y)}, seven oral vowel \emph{({a}, {e}, \d{e}, \d{i}, {o}, \d{o}, {u})} and five nasal vowel phonemes \emph{({an}, \d{e}{n}, {in}, \d{o}{n}, {un})} with three kinds of tones realized on all vowels and syllabic nasal consonants \emph{({\'m}, {\'n})} \citep{akinlabi2004sound}. Yor{\`u}b{\'a} orthography makes notable use of tonal diacritics, known as \emph{am{\'i} oh{\`u}n}, to designate tonal patterns, and orthographic diacritics like underdots for various language sounds \citep{adegbola2012quantifying, wells2000orthographic}.
+Yor{\`u}b{\'a} is a tonal language spoken by more than 40 Million people in the countries of Nigeria, Benin and Togo in West Africa. The phonology is comprised of eighteen consonants, seven oral vowel and five nasal vowel phonemes with three kinds of tones realized on all vowels and syllabic nasal consonants \citep{akinlabi2004sound}. Yor{\`u}b{\'a} orthography makes notable use of tonal diacritics, known as \emph{am{\'i} oh{\`u}n}, to designate tonal patterns, and orthographic diacritics like underdots for various language sounds \citep{adegbola2012quantifying, wells2000orthographic}.
 
-On modern computing and communication platforms, the majority of Yor{\`u}b{\'a} text is written in plain ASCII, without diacritics. This has negative implications for the quality of any Machine Translation (MT), Natural Language Processing (NLP) or Automatic Speech Recognition (ASR) task. To unlock the potential for a robust ecosystem of \emph{Yor{\`u}b{\'a}-first} language technologies, Yor{\`u}b{\'a} text must be correctly represented on current and future computing environments. The ultimate objective of automatic diacritic restoration (ADR) systems is to facilitate text entry and text correction that motivates and encourages the correct orthography and promotes quotidian usage of the language in electronic media.
+Diacritics provide morphological information, are crucial for lexical disambiguation, pronunciation and are vital for any computational Speech or Natural Language Processing  task. To unlock the potential for a robust ecosystem of \emph{Yor{\`u}b{\'a}-first} language technologies, Yor{\`u}b{\'a} text must be correctly represented on current and future computing environments. The ultimate objective of automatic diacritic restoration (ADR) systems is to facilitate text entry and text correction that motivates and encourages the correct orthography and promotes quotidian usage of the language in electronic media.
 
 \subsection{Ambiguity in non-diacritized text}
-The main challenge in non-diacritized text is that it is very ambiguous \citep{orife2018adr, adegbola2012quantifying, asahiah2017restoring, de2007automatic}. ADR, which goes by other names such as Unicodification \citep{scannell2011statistical} or deASCIIfication \citep{arslan2016deasciification}, is a process which attempts to resolve the ambiguity present in undiacritized text. Adegbola et al. state that for ADR the ``prevailing error factor is the number of valid alternative arrangements of the diacritical marks that can be applied to the vowels and syllabic nasals within the words" \citep{adegbola2012quantifying}. Analogously to the analyses performed in \citep{orife2018adr}, we quantify the ambiguity in our current training set by the percentage of all words that have diacritics, 85\%; the percentage of unique non-diacritized word types that have two or more diacritized forms, 32\%, and the lexical diffusion or \emph{LexDif} metric, which conveys the average number of alternatives for each non-diacritized word, 1.47.
+The main challenge in non-diacritized text is that it is very ambiguous \citep{orife2018adr, adegbola2012quantifying, asahiah2017restoring, de2007automatic}. ADR attempts to decode the ambiguity present in undiacritized text. Adegbola et al. assert that for ADR the ``prevailing error factor is the number of valid alternative arrangements of the diacritical marks that can be applied to the vowels and syllabic nasals within the words" \citep{adegbola2012quantifying}. 
+% Analogously to the analyses performed in \citep{orife2018adr}, we quantify the ambiguity in our current training set by the percentage of all words that have diacritics, 85\%; the percentage of unique non-diacritized word types that have two or more diacritized forms, 32\%, and the lexical diffusion or \emph{LexDif} metric, which conveys the average number of alternatives for each non-diacritized word, 1.47.
 % TODO IRORO, to provide the above figures. Not sure if we need to be soo wordy given the template is 2 pages + references + Appendix.
 
-\begin{table}[t]
+\begin{table}[h]
 \caption{Diacritic characters with their non-diacritic forms}
 \label{ambiguity-table}
 \begin{center}
@@ -92,43 +93,40 @@ The main challenge in non-diacritized text is that it is very ambiguous \citep{o
 \end{center}
 \end{table}
 
-Finally, 64\% of all unique, non-diacritized monosyllabic words possess multiple diacritized forms \citep{oluseye2003yoruba, delano1969dictionary}. Given that Yor{\`u}b{\'a} verbs are predominantly monosyllabic and that there are tonal changes rules governing how tonal diacritics on a specific word are \emph{altered} based on context, we acknowledge the complexity of the disambiguation task of diacritic restoration \citep{orife2018adr, delano1969dictionary}. 
+% Finally, 64\% of all unique, non-diacritized monosyllabic words possess multiple diacritized forms \citep{oluseye2003yoruba, delano1969dictionary}. Given that Yor{\`u}b{\'a} verbs are predominantly monosyllabic and that there are tonal changes rules governing how tonal diacritics on a specific word are \emph{altered} based on context, we acknowledge the complexity of the disambiguation task of diacritic restoration \citep{orife2018adr, delano1969dictionary}. 
 
 \subsection{Improving generalization performance}
 
-In our efforts to make the the first ADR models \citep{orife2018adr}, trained on majority Biblical text, available to a wider audience, we frequently tested on colloquial, conversational text. We observed that these early ADR models suffered from domain-mismatch generalization errors and appeared particularly not-robust when presented with contractions or variants of common phrases. We attributed these errors to low-diversity of sources, in this case just three, as well as not-enough-data, under a million tokens. To remedy this problem,  we set about to  we demonstrate that we can improve the model trained on majority Biblical text, using a lot more text from the a variety of sources.
-
-This paper is organized as follows. Section 2 summarizes our data collection efforts. In section 3, we outline our experimental setup and models trained. In section 4, we present the results of the evaluation. In section 5, we conclude with an error analysis and future directions.
+In our efforts to make the the first ADR models \citep{orife2018adr}, trained on majority Biblical text, available to a wider audience, we frequently tested on colloquial, conversational text. We observed that these early ADR models suffered from domain-mismatch generalization errors and appeared particularly not-robust when presented with contractions or variants of common phrases. We attributed these errors to low-diversity of sources and an insufficient number of training examples. To remedy this problem,  we set about to  we demonstrate that we can improve the model trained on majority Biblical text, using a lot more text from the a variety of sources.
 
 \section{Methodology}\label{sec:methods}
 
-\subsection{Data Collection}\label{sec:collection}
+\paragraph{Data Collection}\label{sec:collection}
 
-We started by first attempting a comprehensive GitHub, literature and Google web search, assembling all the public-domain Yor{\`u}b{\'a} sources online. Those without admissible or consistent quality were put into a special queue for human supervision and corrections. This notably included Wikipedia and Twitter. Below we describe briefly each of the admitted corpora to convey a sense of the subject matter and word distributions. 
+We started by first attempting a comprehensive GitHub, literature and Google web search, assembling all the public-domain Yor{\`u}b{\'a} sources online. Those without admissible or consistent quality were put into a special queue for human supervision and corrections. This notably included Wikipedia and Twitter. TIMI OCR SENTENCE HERE. In Table ~\ref{tab:training_datasets} we summarize each of the admitted corpora to convey a sense of the subject matter and word distributions. 
 
 
-\begin{itemize}
+% \begin{itemize}
+% \item \textbf{JW300}: JW300 is a large-scale a parallel corpus for Machine Translation (MT),  by Jehovah's Witnesses (JW), comprising more than three hundred languages with on average one hundred thousand parallel sentences per language pair. The Yor{\`u}b{\'a}-English token pairs number some thirteen million. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines \citep{agic-vulic-2019-jw300}.
 
-\item \textbf{JW300}: JW300 is a large-scale a parallel corpus for Machine Translation (MT),  by Jehovah's Witnesses (JW), comprising more than three hundred languages with on average one hundred thousand parallel sentences per language pair. The Yor{\`u}b{\'a}-English token pairs number some thirteen million. JW300 text is drawn from a number of online blogs, news and contemporary religious magazines \citep{agic-vulic-2019-jw300}.
+% \item \textbf{B{\'i}b{\'e}l{\`i}}: Two different versions of the Yor{\`u}b{\'a} Bible were web-scraped cleaned. The first is from Biblica, which is a translation of the New International Version (NIV). The second version is a 2010 translation published by the Bible Society of Nigeria (BSN). Our previous work only used the Biblica version. A computational analysis of the word distributions of each Bible's text revealed that on average 60\% of all verses were not identical. Therefore, it valuable to have both versions of the Bible to give a diversity of expression for the same concepts. Further more, the additional size was is still dwarfed by the JW300 corpus. 
 
-\item \textbf{B{\'i}b{\'e}l{\`i}}: Two different versions of the Yor{\`u}b{\'a} Bible were web-scraped cleaned. The first is from Biblica, which is a translation of the New International Version (NIV). The second version is a 2010 translation published by the Bible Society of Nigeria (BSN). Our previous work only used the Biblica version. A computational analysis of the word distributions of each Bible's text revealed that on average 60\% of all verses were not identical. Therefore, it valuable to have both versions of the Bible to give a diversity of expression for the same concepts. Further more, the additional size was is still dwarfed by the JW300 corpus. 
+% \item \textbf{Language identification corpus}: This medium sized corpus of one hundred and fifty thousand tokens was used in a Nigerian language identification task involving the three major Nigerian tongues, Hausa, Igbo and Yor{\`u}b{\'a}. We obtained the public-domain text from GitHub \citep{Asubiaro_langid}.
 
-\item \textbf{Language identification corpus}: This medium sized corpus of one hundred and fifty thousand tokens was used in a Nigerian language identification task involving the three major Nigerian tongues, Hausa, Igbo and Yor{\`u}b{\'a}. We obtained the public-domain text from GitHub \citep{Asubiaro_langid}.
+% \item \textbf{Yor{\`u}b{\'a}-Twi word-embedding corpora}
+% This medium sized corpus comprises a number of texts used in a recent word embedding task 
 
-\item \textbf{Yor{\`u}b{\'a}-Twi word-embedding corpora}
-This medium sized corpus comprises a number of texts used in a recent word embedding task 
+% \item \textbf{{\`O}we} is a small collection of Yor{\`u}b{\'a} proverbs scraped from the electronic version of \emph{The Good Person: Excerpts from the Yor{\`u}b{\'a} Proverb Treasury}, a collection compiled and translated by Dr. Oyekan Owomoyela at the University of Nebraska - Lincoln. The corpus has five thousand tokens and parallel English translations \citep{oweyoruba}.
 
-\item \textbf{{\`O}we} is a small collection of Yor{\`u}b{\'a} proverbs scraped from the electronic version of \emph{The Good Person: Excerpts from the Yor{\`u}b{\'a} Proverb Treasury}, a collection compiled and translated by Dr. Oyekan Owomoyela at the University of Nebraska - Lincoln. The corpus has five thousand tokens and parallel English translations \citep{oweyoruba}.
+% \item \textbf{Universal Declaration of Human Rights} is a tiny corpus of some two thousand eight hundred tokens from the Universal Declaration of Human Rights.
 
-\item \textbf{Universal Declaration of Human Rights} is a tiny corpus of some two thousand eight hundred tokens from the Universal Declaration of Human Rights.
+% \item \textbf{L\d{\'e}s{\'i}k{\`a}} is a fifty thousand token corpus of unigrams taken from recent research by Victor Williamson on the Yor{\`u}b{\'a} dictionary. To this list we added de-duped unigrams from all the entire dataset, before splitting into training and validation. This gave us a comprehensive view and the ability to learn the diacritic patterns of all Yor{\`u}b{\'a} words as well as common loan-words.
 
-\item \textbf{L\d{\'e}s{\'i}k{\`a}} is a fifty thousand token corpus of unigrams taken from recent research by Victor Williamson on the Yor{\`u}b{\'a} dictionary. To this list we added de-duped unigrams from all the entire dataset, before splitting into training and validation. This gave us a comprehensive view and the ability to learn the diacritic patterns of all Yor{\`u}b{\'a} words as well as common loan-words.
-
-\item \textbf{Private texts}: In addition to the public domain texts, the authors also had access to personal archives of written work, correctly tone-marked that would add some meaningful diversity to the corpus. These included transcription of interviews and long form stories. These texts numbered some three hundred thousand tokens.
+% \item \textbf{Private texts}: In addition to the public domain texts, the authors also had access to personal archives of written work, correctly tone-marked that would add some meaningful diversity to the corpus. These included transcription of interviews and long form stories. These texts numbered some three hundred thousand tokens.
 
 % TODO We should delete this part since, I don't really know what Timi did. I asked him for something we can use in December, but he hasn't given it, so I'm not sure it makes sense to include this.
-\item \textbf{{Yor{\`u}b{\'a} Object Character Recognition (OCR)}}: Another direction explored by the authors, was the use of Object Character Recognition (OCR).  This is the process of scanning physical books to derive plain text from the scanned images. However the presence of diacritics in Yor{\`u}b{\'a} books presents problems for English OCR models. So we retrained a new Yor{\`u}b{\'a} OCR model using existing clean text. TIMI elborate here on what was done. Feel free to blow grammer and give technical details.\. We bootstrapped our Háà Ènìyàn efforts, Ogboju Ode as well as Aaro Meta.
-\end{itemize}
+% \item \textbf{{Yor{\`u}b{\'a} Object Character Recognition (OCR)}}: Another direction explored by the authors, was the use of Object Character Recognition (OCR).  This is the process of scanning physical books to derive plain text from the scanned images. However the presence of diacritics in Yor{\`u}b{\'a} books presents problems for English OCR models. So we retrained a new Yor{\`u}b{\'a} OCR model using existing clean text. TIMI elborate here on what was done. Feel free to blow grammer and give technical details.\. We bootstrapped our Háà Ènìyàn efforts, Ogboju Ode as well as Aaro Meta.
+% \end{itemize}
 
  \begin{table}[h]
   \caption{Training data subsets}
@@ -149,43 +147,26 @@ This medium sized corpus comprises a number of texts used in a recent word embed
     29,338 & yoruba.unl.edu & Proverbs \\
     28,308 & yo.globalvoices.org & Global Voices news \\
     2,887 & unicode.org/udhr & Human rights edict \\
-
+    --- & YorubaTWI & YorubaTwi Embeddings \\
     \midrule
-    150,360 & - & Interview text \\
-    15,243 & - & Short Stories \\
-    910,401 & - & Háà Ènìyàn \\
+    150,360 & Private sources & Interview text \\
+    15,243 & OCR & Short Stories \\
+    910,401 & OCR & H{\'a}{\`a} {\`E}n{\`i}y{\`a}n \\
 
     \bottomrule
   \end{tabular}
 \end{table}
 
-\subsection{Experimental setup}\label{sec:experimental}
+\paragraph{Experimental setup}\label{sec:experimental}
+Data preprocessing and parallel text preparation followed the same procedures used in \citep{orife2018adr}. Experiments included evaluations of the effect of the various texts on the test accuracy, notably for JW300, which is a disproportionately large contributor to the dataset. We also evaluated models trained with pre-trained FastText embeddings to understand the boost in performance possible with word embeddings.
+
+\paragraph{A new, modern multi-purpose evaluation dataset}\label{sec:evaldataset}
 % TODO we need to write this properly
-When collecting data from disparate sources, we preprocessed texts to ensure consistent, error-free diacritization, splitting lines on full-stops to give one sentence per line. To ensure our splits are drawn from similar distributions, we combined all text, shuffled and split utterances into a ratio of 90\%, 10\%, for training and dev sets respectively.  
+To succeed at the ADR task for users, our research experiments needed to be guided by a test set based around modern, non-archaic text in popular usage. After much review, there was a consensus that the journalistic news text best represented the modern, colloquial usage of the language. So we selected Global Voices, a multilingual community of journalists, translators, bloggers, academics and human rights activists. Their newsroom articles are translated into dozens of languages. We used a web-scrape of their Yor{\`u}b{\'a} articles comprising some twenty-eight thousand tokens.
 
-To prepare source and target texts for parallel training via a sequence-to-sequence architecture, all characters in the texts were dispossessed of their diacritics. Diacritized text was converted to Unicode Normalization Form Canonical Decomposition (NFD) which separates a base character from its diacritics. Next, \emph{UnicodeCategory.NonSpacingMark} characters, which house the diacritic modifications to a character, were filtered out. This yielded two sets of text, one stripped of diacritics (the source) and the other with full diacritics (the training target). 
+% In the previous paper, the test set was selected as a subset of the total available dataset, this means that the test and validation sets, drew generally speaking from the same distribution as the training set, this explains the stellar performance reported in Orife, 2018. However, we need our evaluation set to be a (1) public (2) representative of a mixture of modern written and spoken Yoruba styles (3) large enough. 
 
-To better understand the dataset split, we computed a perplexity of 575.6 for the test targets with a language model trained over the training targets \citep{stolcke2002srilm}. The \{source, target\} vocabularies for training and test sets have \{11857, 18979\} and \{4042, 5641\} word types respectively.
-
-\subsection{Using pre-trained text embeddings}
-% TODO David, we need to write this properly
-TEXT TO FIX and TO DESCRIBE DAVID's FastText, BERT and XLM embeddings. FastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddingsFastText, BERT and XLM embeddings.
-
-
-\subsection{A new, modern multi-purpose evaluation dataset}\label{sec:evaldataset}
-% TODO we need to write this properly
-Here we discuss in detail the selection of Iroyin, perhaps present some facts and figures about it, to better understand why it is a good evaluation set and to motivate how we converged on it being the best text subset. Modern, non-archaic text, popular usage and a better proxy than any of the religious centered texts (JW300, Bibeli, etc) and less formal.
-
-% TODO we need to write this properly
-Global Voices is a multilingual community of journalists, translators, bloggers, academics and human rights activists. Their newsroom articles are translated into dozens of languages. We used a web-scrape of their Yor{\`u}b{\'a} articles comprising some twenty-eight thousand tokens.
-
-In the previous paper, the test set was selected as a subset of the total available dataset, this means that the test and validation sets, drew generally speaking from the same distribution as the training set, this explains the stellar performance reported in Orife, 2018. However, we need our evaluation set to be a (1) public (2) representative of a mixture of modern written and spoken Yoruba styles (3) large enough. 
-
-From the texts that we had available, including interviews, journalistic news, literary and liturgical texts, there was a consensus that the journalistic news text best represented the modern, colloquial usage of the language. Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
-
-
-\subsection{Training}\label{sec:training}
-% TODO IRORO need to write this properly
+% From the texts that we had available, including interviews, journalistic news, literary and liturgical texts,  Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
 
 \section{Results}\label{sec:results}
 % TODO IRORO need to write this properly
@@ -194,40 +175,12 @@ The dev set will be the test set drawn from the training data's distribution. Te
 
 % TODO IRORO DAVID these results can go in the Appendix --> we need to write this properly
 To evaluate the performance of our ADR models, we computed the accuracy score as the ratio of correct words restored to all words. We calculate the perplexity of each model's predictions based on the test set targets.
- \begin{table}[h]
-  \caption{Training \& Test Accuracy and Perplexity}
-  \label{tab:results}
-  \centering
-  \begin{tabular}{lcc}
-    \toprule
-    \textbf{Model} & \textbf{Accuracy \%} &\textbf{Perplexity} \\
-    \midrule
-    Baseline RNN (?) & 90.1 & 1.68 \\
-    Baseline Bandahau & 90.1 & 1.85 \\
-    \midrule
-	Bandahau+ & 90.1 & 1.9 \\ 
-	Transformer+ & 90.1 & 1.9 \\ 
-    \midrule
-	Bandahau+JW300 & 90.1 & 1.9 \\ 
-	Transformer+JW300 & 90.1 & 1.9 \\ 
-	\midrule
-	Bandahau+JW300+FastText & 90.1 & 1.9 \\ 
-	Transformer+JW300+FastText & 90.1 & 1.9 \\ 
-    \bottomrule
-  \end{tabular}
-\end{table}
 Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. 
 
-\subsection{Error Analysis}
-While performing error analyses on the model predictions, we observed: DESCRIBE YOUR OBSERVATIONS
+\section{Conclusions and Future Work}
 
-\section{Conclusions}
-
-\subsection{Discussion} %a.k.a lessons learned
 Additional data and more diverse data definitely improves performance. Modern Text embeddings provide an additional boost in accuracy (TBD).
 
-
-\subsection{Future Work}
 %Moving towards outputs
 %Building killer apps
 %Sharing the experience and expanding the NLP tasks
@@ -241,9 +194,10 @@ We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria.
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
 
+\clearpage
+
 \appendix
 \section{Appendix}
-You may include other additional results here. 
 
  \begin{table}[h]
   \caption{Training \& Test Accuracy and Perplexity}
@@ -268,26 +222,28 @@ You may include other additional results here.
   \end{tabular}
 \end{table}
 
-\begin{table}[ht]
-\caption{Examples of diacritic restoration - Put in proper table}
-\label{ambiguity-table-appendix}
+\begin{table}[h]
+\caption{Example Sentences}
+\label{results}
 \begin{center}
-  \begin{tabular}{lcl}
-    \multicolumn{2}{c}{\bf Characters} & \textbf{Examples}  \\
-	 \hline \\
-    {\`a} {\'a} \v{a} & \textbf{a} & gb{\`a} \emph{(spread)}, gba \emph{(accept)}, gb{\'a} \emph{(hit)}    \\  
-    {\`e} {\'e} \d{e} \d{\`e} \d{\'e} & \textbf{e} & {\`e}s{\`e} \emph{(dye)}, \d{e}s\d{\`e} \emph{(foot)}, es{\'e} \emph{(cat)}\\
-    {\`i} {\'i} & \textbf{i} & {\`i}l{\`u} \emph{(drum)}, ilu \emph{(opener)}, {\`i}l{\'u} \emph{(town)}\\  
-    {\`o} {\'o} \d{o} \d{\`o} \d{\'o} \v{o} & \textbf{o} & ar\d{o} \emph{(an invalid)}, ar{\'o} \emph{(indigo)}, {\`a}r{\`o} \emph{(hearth)}, {\`a}r\d{o} \emph{(funnel)}, {\`a}r\d{\`o} \emph{(catfish)}\\  
-    {\`u} {\'u} \v{u} & \textbf{u} & k{\`u}n \emph{(to paint)}, kun \emph{(to carve)}, k{\'u}n \emph{(be full)} \\
-	\hline \\
-    {\`n} {\'n} \={n} & \textbf{n} & {\`n} (a negator), {n} \emph{(I)}, {\'n} (continuous aspect marker) \\  
-    \d{s} & \textbf{s} &  \d{s}{\`a} \emph{(to choose)}, \d{s}{\'a} \emph{(fade)}, {s}{\`a} \emph{(to baptise)}, {s}{\'a} \emph{(to run)}\\  
-	\hline \\
+  \begin{tabular}{ll}
+  	\toprule
+	 Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Prediction:  &   We can even ask God to ‘ create in us a pure heart \\
+	 \midrule
+	 Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Prediction:  &   We can even ask God to ‘ create in us a pure heart \\
+     \midrule
+     Source: &    Still , words of apology are a strong force toward making peace \\
+	 Reference:  &   We can even ask God to ‘ create in us a pure heart \\
+	 Prediction:  &   We can even ask God to ‘ create in us a pure heart \\
+    \bottomrule
+
   \end{tabular}
 \end{center}
 \end{table}
 
-
-
 \end{document}
+`
