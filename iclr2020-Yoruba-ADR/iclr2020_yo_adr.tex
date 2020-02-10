@@ -141,15 +141,15 @@ We started by first attempting a comprehensive GitHub, literature and Google web
     \midrule
     11,488,825 & opus.nlpl.eu & JW300 \\
     831,820 & bible.com/versions/207 & Bible Society Nigeria \\
-    142,991 & - & Language ID corpus \\
-    47,195 & - & Yor{\`u}b{\'a} Lexicon \\
+    177,675 & GitHub & Yor{\`u}b{\'a}Twi embeddings dataset \\
+    142,991 & GitHub & Language ID corpus \\
+    47,195 &  & Yor{\`u}b{\'a} Lexicon \\
     29,338 & yoruba.unl.edu & Proverbs \\
     2,887 & unicode.org/udhr & Human rights edict \\
-    --- & YorubaTWI & YorubaTwi Embeddings \\
     \midrule
     150,360 & Private sources & Interview text \\
-    15,243 & OCR & Short Stories \\
-    910,401 & OCR & H{\'a}{\`a} {\`E}n{\`i}y{\`a}n \\
+    15,281 & Private sources & Short Stories \\
+    20,038 & OCR & H{\'a}{\`a} {\`E}n{\`i}y{\`a}n \\
     \midrule
     \midrule
     28,308 & yo.globalvoices.org & Global Voices news \\
@@ -171,21 +171,11 @@ To succeed at the ADR task for users, our research experiments needed to be guid
 % From the texts that we had available, including interviews, journalistic news, literary and liturgical texts,  Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
 
 \section{Results}\label{sec:results}
-% TODO IRORO need to write this properly
-
-The dev set will be the test set drawn from the training data's distribution. Test set will be Iroyin as described above. We should match the figures published in \citep{orife2018adr} with the current figure to tell a consistent story. Even though the test set has changed, we should still evaluate the legacy models on it to show how badly it geneneralized even thought it had very good in-domain performance.
-
-% TODO IRORO DAVID these results can go in the Appendix --> we need to write this properly
-To evaluate the performance of our ADR models, we computed the accuracy score as the ratio of correct words restored to all words. We calculate the perplexity of each model's predictions based on the test set targets.
 Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. Discussion of results. 
 
 \section{Conclusions and Future Work}
 
 Additional data and more diverse data definitely improves performance. Modern Text embeddings provide an additional boost in accuracy (TBD).
-
-%Moving towards outputs
-%Building killer apps
-%Sharing the experience and expanding the NLP tasks
 
 All public-domain datasets referenced in this work are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-text}} \footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-adr}}
 
