@@ -97,12 +97,11 @@ The main challenge in non-diacritized text is that it is very ambiguous \citep{o
 
 \subsection{Improving generalization performance}
 
-In our efforts to make the the first ADR models \citep{orife2018adr}, trained on majority Biblical text, available to a wider audience, we frequently tested on colloquial, conversational text. We observed that these early ADR models suffered from domain-mismatch generalization errors and appeared particularly not-robust when presented with contractions or variants of common phrases. We attributed these errors to low-diversity of sources and an insufficient number of training examples. To remedy this problem,  we set about to  we demonstrate that we can improve the model trained on majority Biblical text, using a lot more text from the a variety of sources.
+In our efforts to make the the first open-sourced ADR models available to a wider audience, we frequently tested on colloquial, conversational text. We observed that these early models suffered from domain-mismatch generalization errors and appeared particularly not-robust when presented with contractions or variants of common phrases. Because they were trained on majority Biblical text, we attributed these errors to low-diversity of sources and an insufficient number of training examples. To remedy this problem,  we set about to  we demonstrate that we can improve the model trained on majority Biblical text, using appreciably more text from a variety of sources.
 
 \section{Methodology}\label{sec:methods}
 
 \paragraph{Data Collection}\label{sec:collection}
-
 We started by first attempting a comprehensive GitHub, literature and Google web search, assembling all the public-domain Yor{\`u}b{\'a} sources online. Those without admissible or consistent quality were put into a special queue for human supervision and corrections. This notably included Wikipedia and Twitter. TIMI OCR SENTENCE HERE. In Table ~\ref{tab:training_datasets} we summarize each of the admitted corpora to convey a sense of the subject matter and word distributions. 
 
 
@@ -129,9 +128,9 @@ We started by first attempting a comprehensive GitHub, literature and Google web
 % \end{itemize}
 
  \begin{table}[h]
-  \caption{Training data subsets}
+  \caption{Data sources}
   \label{tab:training_datasets}
-  \centering
+  \begin{center}
   \begin{tabular}{rll}
     \toprule
     \textbf{\# words} & \textbf{Source or URL}  & \textbf{Description} \\
@@ -145,16 +144,19 @@ We started by first attempting a comprehensive GitHub, literature and Google web
     142,991 & - & Language ID corpus \\
     47,195 & - & Yor{\`u}b{\'a} Lexicon \\
     29,338 & yoruba.unl.edu & Proverbs \\
-    28,308 & yo.globalvoices.org & Global Voices news \\
     2,887 & unicode.org/udhr & Human rights edict \\
     --- & YorubaTWI & YorubaTwi Embeddings \\
     \midrule
     150,360 & Private sources & Interview text \\
     15,243 & OCR & Short Stories \\
     910,401 & OCR & H{\'a}{\`a} {\`E}n{\`i}y{\`a}n \\
+    \midrule
+    \midrule
+    28,308 & yo.globalvoices.org & Global Voices news \\
 
     \bottomrule
   \end{tabular}
+  \end{center}
 \end{table}
 
 \paragraph{Experimental setup}\label{sec:experimental}
@@ -202,7 +204,7 @@ We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria.
  \begin{table}[h]
   \caption{Training \& Test Accuracy and Perplexity}
   \label{tab:results-appendix}
-  \centering
+ \begin{center}
   \begin{tabular}{lcc}
     \toprule
     \textbf{Model} & \textbf{Accuracy \%} &\textbf{Perplexity} \\
@@ -220,6 +222,7 @@ We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria.
 	Transformer+JW300+FastText & 90.1 & 1.9 \\ 
     \bottomrule
   \end{tabular}
+  \end{center}
 \end{table}
 
 \begin{table}[h]
@@ -246,4 +249,3 @@ We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria.
 \end{table}
 
 \end{document}
-`
