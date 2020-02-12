@@ -181,7 +181,7 @@ All public-domain datasets referenced in this work are available on GitHub.\foot
 
 \subsubsection*{Acknowledgments}
 % TODO IRORO DAVID Who else are we thanking?  
-We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria. 
+The authors are grateful for all the support received from Yor{\`u}b{\'a} Name, Masakhane and DataScience Nigeria. 
 
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
@@ -192,48 +192,55 @@ We thank everyone from Yor{\`u}b{\'a} Name, Masakhane, DataScience Nigeria.
 \section{Appendix}
 
  \begin{table}[h]
-  \caption{Training \& Test Accuracy and Perplexity}
+  \caption{BLEU, predicted perplexity \& WER scores on the Global Voices testset}
   \label{tab:results-appendix}
  \begin{center}
-  \begin{tabular}{lcc}
+  \begin{tabular}{lccc}
     \toprule
-    \textbf{Model} & \textbf{Accuracy \%} &\textbf{Perplexity} \\
+    \textbf{Model} & \textbf{BLEU} &\textbf{Perplexity} &\textbf{WER}\\
+    \bottomrule
+    \\
+%   Baseline RNN (?) & 90.1 & 1.68 \\
+    Soft-attention model from \citep{orife2018adr} & 26.53 & 1.34 & -\\
     \midrule
-    Baseline RNN (?) & 90.1 & 1.68 \\
-    Baseline Bandahau & 90.1 & 1.85 \\
+	\hspace{5mm} + Language ID corpus & 42.52 & 1.69 & -\\ 
+	\hspace{10mm} ++ Interview text & 42.23 & 1.59 & -\\
+	\hspace{5mm} + All new text \it{minus} JW300 & 43.39 & 1.60 & -\\ 
+	\hspace{5mm} + All new text & \textbf{59.55} & 1.44 & -\\ 
+	\hspace{5mm} + All new text with FastText embedding & 58.87 & \textbf{1.39} & -\\ 
     \midrule
-	Bandahau+ & 90.1 & 1.9 \\ 
-	Transformer+ & 90.1 & 1.9 \\ 
-    \midrule
-	Bandahau+JW300 & 90.1 & 1.9 \\ 
-	Transformer+JW300 & 90.1 & 1.9 \\ 
-	\midrule
-	Bandahau+JW300+FastText & 90.1 & 1.9 \\ 
-	Transformer+JW300+FastText & 90.1 & 1.9 \\ 
+	Transformer model \\
+	 \hspace{5mm} + All new text \it{minus} JW300 & 45.68 & 1.95 & -\\
+	 \hspace{5mm} + All new text & 59.05 & 1.40 & -\\
+	 \hspace{5mm} + All new text + FastText embedding & \textbf{59.80} & 1.43 & -\\ 
     \bottomrule
   \end{tabular}
   \end{center}
 \end{table}
 
 \begin{table}[h]
-\caption{Example Sentences}
+\caption{Example Yor{\`u}b{\'a} ADR Sentences}
 \label{results}
 \begin{center}
   \begin{tabular}{ll}
-  	\toprule
-	 Source: &    Still , words of apology are a strong force toward making peace \\
-	 Reference:  &   We can even ask God to ‘ create in us a pure heart \\
-	 Prediction:  &   We can even ask God to ‘ create in us a pure heart \\
-	 \midrule
-	 Source: &    Still , words of apology are a strong force toward making peace \\
-	 Reference:  &   We can even ask God to ‘ create in us a pure heart \\
-	 Prediction:  &   We can even ask God to ‘ create in us a pure heart \\
-     \midrule
-     Source: &    Still , words of apology are a strong force toward making peace \\
-	 Reference:  &   We can even ask God to ‘ create in us a pure heart \\
-	 Prediction:  &   We can even ask God to ‘ create in us a pure heart \\
-    \bottomrule
+  	\toprule \\
+\textbf{Source:}     & iriri akobuloogu \textbf{zone9} ilu ethiopia je apeere . \\
+\textbf{Reference:}  & {\`i}r{\'i}r{\'i} \textbf{ak\d{o}b{\'u}l\d{{\'o}}\d{{\`o}}g{\`u} zone9} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\
+\textbf{Prediction:} & {\`i}r{\'i}r{\'i} \textbf{\textcolor{red}{akobuloogu or{\'i}l{\`e}}} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\ \\
+  	\midrule \\ 
+		\textbf{Source:} &       mo awon ondije si ipo aare naijiria odun 2019 \\
+		\textbf{Reference:}  &   m\d{o} {\`a}w\d{o}n {\`o}{\`n}d{\'i}je s{\'i} ip{\`o} {\`a}{\`a}r\d{e} n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\
+			 \textbf{Prediction:} &   m\d{o} {\`a}w\d{o}n \textbf{\textcolor{red}{ondije}} s{\'i} ip{\`o} {\`a}{\`a}r\d{e}  n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\ \\
+     \midrule \\
+     \textbf{Source:}  & mo ro o wipe awon obirin ti o ronu lati se ise ti okunrin maa n se gbodo gberaga .\\
+     \textbf{Reference:} &  mo r{\`o} {\'o} w{\'i}p{\'e} {\`a}w\d{o}n ob{\`i}rin t{\'i} {\'o} ron{\'u} l{\'a}ti \d{s}e i\d{s}\d{{\'e}} t{\'i} \d{o}k{\`u}nrin m{\'a}a {\'n} \d{s}e gb\d{o}d\d{{\`o}} gb{\'e}raga . \\
+\textbf{Prediction:} &   mo r{\`o} {\'o} w{\'i}p{\'e} {\`a}w\d{o}n ob{\`i}rin t{\'i} {\'o} ron{\'u} l{\'a}ti \d{s}e i\d{s}\d{{\'e}} t{\'i} \d{o}k{\`u}nrin m{\'a}a {\'n} \d{s}e gb\d{o}d\d{{\`o}} gb{\'e}raga . \\ \\
+\midrule \\ 
+\textbf{Source:}     & alaga akoko ilu-ti-ko-fi-oba-je ti china mao zedong ti yo awon eniyan ninu isoro . \\
+\textbf{Reference:}  & al{\'a}ga {\`a}k\d{{\'o}}k\d{{\'o}} \textbf{{\`i}l{\'u}-t{\'i}-k{\`o}-fi-\d{o}ba-j\d{e}} ti \textbf{china mao zedong} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\
+\textbf{Prediction:} & al{\'a}ga {\`a}k\textbf{\textcolor{red}{{\'o}k{\`o} ilu-ti-ko-fi-oba-je}} ti \textbf{\textcolor{red}{china mao tse}} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\ \\
 
+    \bottomrule
   \end{tabular}
 \end{center}
 \end{table}
