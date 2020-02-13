@@ -74,7 +74,7 @@ For almost-extinct languages, machine translation offers hope for language docum
 % Urhobo: 500k - 1.5M/2M
 % Isoko: 658,000 
 
-Belonging to the eastern sub-branch of the Volta-Niger family within the Niger-Congo phylum, and spoken by approximately 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta State) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, \d{\`E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{wiki_Edoid}. These languages were selected based on the availability of text and because they are the most widely spoken.
+Belonging to the eastern sub-branch of the Volta-Niger family within the Niger-Congo phylum, and spoken by approximately 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta States) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, \d{\`E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{ethnologue_2019}. These languages were selected based on the availability of text and because they are the most widely spoken.
 
 Edoid langauges generally employ the SVO constituent order type, open syllable systems with very few consonant clusters. Each language has at least two basic tone levels, high (H) and low (L) with kinetic, downstepped or contour tones variously utilized. As tone patterns serve different lexical and grammatical functions, ``the phonetic and phonological implementation of this system is in fact complex and difficult to pin down" \citep{rolle2013phonetics, ogie2009multi, adeniyi2010tone, ilolo2013vowel}. Finally, nasalisation is very common for both vowels and consonants \citep{Elugbe_1989, isoko_phonetics, ikoyo2018phonetic}. 
 
@@ -91,13 +91,13 @@ Within Nigeria there is scholarship on rule, phrase and statistical machine tran
 
 \paragraph{Dataset:} The recently published JW300 dataset is a large-scale, parallel corpus for Machine Translation (MT) comprising more than three hundred languages of which 101 are African \citep{agic-vulic-2019-jw300}. JW300 text is drawn from the Watchtower and Awake! religious magazines by Jehovah's Witnesses (JW). The test set contains sentences with the highest coverage across all other languages in the corpus. The relative training set cardinality is listed in Appendix Table~\ref{results}. 
 
-\paragraph{Models:} The open-source, Python 3 machine translation toolkit \texttt{JoeyNMT} was used to train models based on the Transformer architecture \citep{JoeyNMT}. Our training hardware was the commodity free-tier configuration on Google Colaboratory, a single core Xeon CPU instance and a Tesla K80 GPU. Model training elapsed over multiple days, as experiments were repeated for the differenttokenization.
+\paragraph{Models:} The open-source, Python 3 machine translation toolkit \texttt{JoeyNMT} was used to train models based on the Transformer architecture \citep{JoeyNMT}. Our training hardware was the commodity free-tier configuration on Google Colaboratory, a single core Xeon CPU instance and a Tesla K80 GPU. Model training elapsed over multiple days, as experiments were repeated for the different tokenizations.
 
 \section{Results}
 \label{results}
 
 % Dad's view on the concepts 
-\paragraph{Qualitative:} Unsuprisingly, for Urhobo and Isoko which are much better resourced, the BLEU scores are generally correlated with the translation quality when reviewed by L1 speakers. Examples are listed in the Appendix.
+\paragraph{Qualitative:} Urhobo and Isoko which have much better larger training texts unsurprisingly have higher BLEU scores which generally correlate with the translation quality when reviewed by L1 speakers. BPE tokenization provides approximatesly 37\% boost across dev and test sets for \d{\`E}d{\'o} and \d{\`E}s{\'a}n, 32\% boost for Urhobo but flat to slightly words than word-level tokenization for Isoko. Full scores and examples are listed in the Appendix.
 
 \paragraph{Error Analysis:} While performing error analyses on the model predictions, we observed predictions that included  dataset requires more preprocessing to remove scriptural chapter and verse text.  chapters\/verse names and figures. This will make the model more generally useful outside of religious text translations.
 
@@ -149,7 +149,7 @@ The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife f
 
 \begin{table}[h]
 \caption{Example Translations}
-\label{results}
+\label{translations}
 \begin{center}
   \begin{tabular}{ll}
      \textbf{\d{\`E}d{\'o}}  & \\
