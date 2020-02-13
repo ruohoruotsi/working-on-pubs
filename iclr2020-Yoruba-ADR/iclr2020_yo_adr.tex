@@ -10,6 +10,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\newcommand{\David}[1]{\textcolor{red}{#1}}
 
 \title{Improving Yor{\`u}b{\'a} Diacritic Restoration}
 
@@ -17,18 +18,18 @@
 % This will be everyone who has (a) provided or cleaned text (b) contributed code
 %% TODO Everyone put their Affiliation, Take away Niger-Volta LTI, if you want, it was just there as a placeholder, given I don't know everyone's desired affiliation
 
-\author{David Ad{\'e}lan{\'i} \\
+\author{Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
+Niger-Volta LTI\\
+\And
+David Ad{\'e}lan{\'i} \\
 Saarland University\\
 Niger-Volta LTI \\
 \And
-Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
-Niger-Volta LTI\\
-\And
-K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n \\
-Yor{\`u}b{\'a} Name \\
-\And
 T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa \\
 Niger-Volta LTI \\
+\And
+Victor Williamson \\
+University of Wisconsin-Milwaukee \\
 \And
 \d{O}l{\'a}mil{\'e}kan Wahab \\
 Niger-Volta LTI \\
@@ -37,7 +38,7 @@ W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i} \\
 Data Science Nigeria \\
 Niger-Volta LTI \\
 \And
-Victor Williamson \\
+K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n \\
 Yor{\`u}b{\'a} Name \\
 }
 
@@ -97,7 +98,7 @@ The main challenge in non-diacritized text is that it is very ambiguous \citep{o
 
 \subsection{Improving generalization performance}
 
-To make the first open-sourced ADR models available to a wider audience, we tested extensively on colloquial and conversational text. Early models suffered from domain-mismatch generalization errors and appeared particularly weak when presented with contractions, loan words or variants of common phrases. Because they were trained on majority Biblical text, we attributed these errors to low-diversity of sources and an insufficient number of training examples. To remedy this problem, we aggregated text from a variety of online public-domain sources as well as actual books. After scanning physical books, we successfully employed commercial Optical Character Recognition (OCR) software to concurrently use English, Romanian and Vietnamese characters, forming an \emph{approximative superset} of the Yor{\`u}b{\'a} character set. Text with inconsistent quality was put into a special queue for subsequent human supervision and manual correction. 
+To make the first open-sourced ADR models available to a wider audience, we tested extensively on colloquial and conversational text. Early model~\citep{orife2018adr} suffered from domain-mismatch generalization errors and appeared particularly weak when presented with contractions, loan words or variants of common phrases. Because they were trained on majority Biblical text, we attributed these errors to low-diversity of sources and an insufficient number of training examples. To remedy this problem, we aggregated text from a variety of online public-domain sources as well as actual books. After scanning physical books, we successfully employed commercial Optical Character Recognition (OCR) software to concurrently use English, Romanian and Vietnamese characters, forming an \emph{approximative superset} of the Yor{\`u}b{\'a} character set. Text with inconsistent quality was put into a special queue for subsequent human supervision and manual correction. 
 
 \section{Methodology}\label{sec:methods}
 
@@ -158,14 +159,15 @@ Data preprocessing, parallel text preparation and training hyper-parameters are 
   \end{center}
 \end{table}
 
-\paragraph{A new, modern multi-purpose evaluation dataset}\label{sec:evaldataset} To make ADR productive for users, our research experiments needed to be guided by a test set based around modern, colloquial and not exclusively literary text. After much review, we selected Global Voices, a corpus of ournalistic news text best from a multilingual community of journalists, translators, bloggers, academics and human rights activists \citep{global_voices}.
+\paragraph{A new, modern multi-purpose evaluation dataset}\label{sec:evaldataset} To make ADR productive for users, our research experiments needed to be guided by a test set based around modern, colloquial and not exclusively literary text. After much review, we selected Global Voices, a corpus of journalistic news text %best 
+from a multilingual community of journalists, translators, bloggers, academics and human rights activists \citep{global_voices}.
 
 % In the previous paper, the test set was selected as a subset of the total available dataset, this means that the test and validation sets, drew generally speaking from the same distribution as the training set, this explains the stellar performance reported in Orife, 2018. However, we need our evaluation set to be a (1) public (2) representative of a mixture of modern written and spoken Yoruba styles (3) large enough. 
 
 % From the texts that we had available, including interviews, journalistic news, literary and liturgical texts,  Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
 
 \section{Results}\label{sec:results}
-We evaluated the ADR models by computing a single-reference BLEU score using the Moses \texttt{multi-bleu.perl} scoring script as well as the predicted perplexity of the model's own predictions. The results are summarized in Appendix \ref{sec:appendix}. All models with additional data improved over the 3-corpus baseline, with the JW300 providing a 33\% boost in BLEU. Error analyses revealed the Transformer model's robustness to loan or code-switched words in the sequence, usually predicting something reasonable and continuing correctly afterward. The FastText embedding provided a small boost in performance for the Transformer, but was flat for the soft-attention architecture. 
+We evaluated the ADR models by computing a single-reference BLEU score using the Moses \texttt{multi-bleu.perl} scoring script as well as the predicted perplexity of the model's own predictions. The results are summarized in Appendix \ref{sec:appendix}. All models with additional data improved over the 3-corpus baseline, with the JW300 providing a 33\% boost in BLEU. Error analyses revealed the Transformer model's robustness to loan or code-switched words in the sequence, usually predicting something reasonable and \David{"continuing correctly afterward" is not very clear to me, can you please explain further or maybe rephrase}. The FastText embedding provided a small boost in performance for the Transformer, but was flat for the soft-attention architecture. 
   
 \section{Conclusions and Future Work}
 
