@@ -10,7 +10,8 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\newcommand{\David}[1]{\textcolor{red}{#1}}
+%\newcommand{\David}[1]{\textcolor{red}{#1}}
+\definecolor{ao}{rgb}{0.0, 0.5, 0.0}
 
 \title{Improving Yor{\`u}b{\'a} Diacritic Restoration}
 
@@ -127,7 +128,7 @@ To make the first open-sourced ADR models available to a wider audience, we test
 % \end{itemize}
 
 \paragraph{Experimental setup}\label{sec:experimental}
-Data preprocessing, parallel text preparation and training hyper-parameters are the same as in \citep{orife2018adr}. Experiments included evaluations of the effect of the various texts, notably for JW300, which is a disproportionately large contributor to the dataset. We also evaluated models trained with pre-trained FastText embeddings to understand the boost in performance possible with word embeddings \citep{alabi2019massive, bojanowski2017enriching}. Our training hardware configuration was an AWS EC2 p3.2xlarge instance with OpenNMT-py \citep{opennmt}.
+Data preprocessing, parallel text preparation and training hyper-parameters are the same as in \citep{orife2018adr}. Experiments included evaluations of the effect of the various texts, notably for JW300, which is a disproportionately large contributor to the dataset. We also evaluated models trained with pre-trained FastText embeddings to understand the boost in performance possible with word embeddings \citep{alabi2019massive, bojanowski2017enriching}. Our training hardware configuration was an AWS EC2 p3.2xlarge instance with \texttt{OpenNMT-py} \citep{opennmt}.
 
  \begin{table}[h]
   \caption{Data sources, prevalence and category of text}
@@ -151,11 +152,10 @@ Data preprocessing, parallel text preparation and training hyper-parameters are 
     \midrule
     150,360 & Private sources & Conversational interviews \\
     15,281 & Private sources & Short stories \\
-    20,038 & OCR & H{\'a}{\`a} {\`E}n{\`i}y{\`a}n (Fiction)\\
+    20,038 & OCR & H{\'a}{\`a} {\`E}n{\`i}y{\`a}n (Fiction) \\
     \midrule
     \midrule
     28,308 & yo.globalvoices.org & Global Voices news \\
-
     \bottomrule
   \end{tabular}
   \end{center}
@@ -169,11 +169,11 @@ from a multilingual community of journalists, translators, bloggers, academics a
 % From the texts that we had available, including interviews, journalistic news, literary and liturgical texts,  Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
 
 \section{Results}\label{sec:results}
-We evaluated the ADR models by computing a single-reference BLEU score using the Moses \texttt{multi-bleu.perl} scoring script as well as the predicted perplexity of the model's own predictions. The results are summarized in Appendix \ref{sec:appendix}. All models with additional data improved over the 3-corpus baseline, with the JW300 providing a 33\% boost in BLEU. Error analyses revealed the Transformer model's robustness to loan or code-switched words in the sequence, usually predicting something reasonable and \David{"continuing correctly afterward" is not very clear to me, can you please explain further or maybe rephrase}. The FastText embedding provided a small boost in performance for the Transformer, but was flat for the soft-attention architecture. 
+We evaluated the ADR models by computing a single-reference BLEU score using the Moses \texttt{multi-bleu.perl} scoring script as well as the predicted perplexity of the model's own predictions. The results are summarized in Appendix \ref{sec:appendix}. All models with additional data improved over the 3-corpus baseline, with the JW300 providing a 33\% boost in BLEU. Error analyses revealed the Transformer model's robustness to seeing digits, rare or code-switched words in the sequence, usually predicting the undiacritized form or a related word from the context, but continuing to correctly predict subsequent words of the sequence correctly. The FastText embedding provided a small boost in performance for the Transformer, but was flat for the soft-attention architecture. 
   
 \section{Conclusions and Future Work}
 
-Promising next steps include futher automation of our human-in-the-middle data-cleaning tools, further research on tools for contextualized embeddings in Yor{\`u}b{\'a} and deploying or serving these improved ADR models\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-adr}} in user-facing applications and devices.  
+Promising next steps include further automation of our human-in-the-middle data-cleaning tools, further research on contextualized word embeddings for Yor{\`u}b{\'a} and serving or deploying the improved ADR models\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-adr}}\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-text}} in user-facing applications and devices.  
 
 %\subsubsection*{Acknowledgments}
 %The authors are grateful for all the support received from Yor{\`u}b{\'a} Name, Masakhane and Data Science Nigeria. 
@@ -214,7 +214,7 @@ Promising next steps include futher automation of our human-in-the-middle data-c
 \end{table}
 
 \begin{table}[h]
-\caption{Example Yor{\`u}b{\'a} ADR Sentences}\label{results}
+\caption{ADR errors in \textbf{\textcolor{red}{red}}, robust predictions of rare, loan words or digits in \textbf{\textcolor{ao}{green}}}\label{results}
 \begin{center}
   \begin{tabular}{ll}
   	\toprule \\
@@ -228,23 +228,23 @@ Promising next steps include futher automation of our human-in-the-middle data-c
 		\textbf{Prediction:} & b{\'i} {\'o} til\d{{\`e}}  j\d{{\'e}}  p{\'e} \d{e}gb\d{e}\d{e}gb\d{{\`e}}r{\'u}n ti pad{\'a} s{\'i}l{\'e} .\\ \\
     
     \midrule \\ 
-    	\textbf{Source:} &       mo awon ondije si ipo aare naijiria odun 2019 \\
-		\textbf{Reference:}  &   m\d{o} {\`a}w\d{o}n {\`o}{\`n}d{\'i}je s{\'i} ip{\`o} {\`a}{\`a}r\d{e} n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\
-		\textbf{Prediction:} &   m\d{o} {\`a}w\d{o}n \textbf{\textcolor{red}{ondije}} s{\'i} ip{\`o} {\`a}{\`a}r\d{e}  n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\ \\	 
+    	\textbf{Source:} &       mo awon ondije si ipo aare naijiria odun \textbf{\textcolor{ao}{2019}} \\
+		\textbf{Reference:}  &   m\d{o} {\`a}w\d{o}n {\`o}{\`n}d{\'i}je s{\'i} ip{\`o} {\`a}{\`a}r\d{e} n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n \textbf{\textcolor{ao}{2019}} \\
+		\textbf{Prediction:} &   m\d{o} {\`a}w\d{o}n \textbf{\textcolor{red}{ondije}} s{\'i} ip{\`o} {\`a}{\`a}r\d{e}  n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n \textbf{\textcolor{ao}{2019}} \\ \\	 
 
 	\midrule \\
-   	\textbf{Source:}     & iriri akobuloogu \textbf{zone9} ilu ethiopia je apeere . \\
-	\textbf{Reference:}  & {\`i}r{\'i}r{\'i} \textbf{ak\d{o}b{\'u}l\d{{\'o}}\d{{\`o}}g{\`u} zone9} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\
-	\textbf{Prediction:} & {\`i}r{\'i}r{\'i} \textbf{\textcolor{red}{akobuloogu or{\'i}l{\`e}}} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\ \\
+   	\textbf{Source:}     & iriri akobuloogu \textbf{\textcolor{ao}{zone9}} ilu ethiopia je apeere . \\
+	\textbf{Reference:}  & {\`i}r{\'i}r{\'i} \textbf{ak\d{o}b{\'u}l\d{{\'o}}\d{{\`o}}g{\`u}} \textbf{\textcolor{ao}{zone9}}  {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\
+	\textbf{Prediction:} & {\`i}r{\'i}r{\'i} \textbf{\textcolor{red}{akobuloogu}} \textbf{\textcolor{ao}{or{\'i}l{\`e}}} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\ \\
   	
     \midrule \\
 	\textbf{Source:}     & alaga akoko ilu-ti-ko-fi-oba-je ti china mao zedong ti yo awon eniyan ninu isoro . \\
-	\textbf{Reference:}  & al{\'a}ga {\`a}k\d{{\'o}}k\d{{\'o}} \textbf{{\`i}l{\'u}-t{\'i}-k{\`o}-fi-\d{o}ba-j\d{e}} ti \textbf{china mao zedong} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\
-	\textbf{Prediction:} & al{\'a}ga {\`a}k\textbf{\textcolor{red}{{\'o}k{\`o} ilu-ti-ko-fi-oba-je}} ti \textbf{\textcolor{red}{china mao tse}} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\ \\
+	\textbf{Reference:}  & al{\'a}ga {\`a}k\d{{\'o}}k\d{{\'o}} \textbf{{\`i}l{\'u}-t{\'i}-k{\`o}-fi-\d{o}ba-j\d{e}} ti \textbf{\textcolor{ao}{china mao zedong}} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\
+	\textbf{Prediction:} & al{\'a}ga {\`a}k{\'o}k\textbf{\textcolor{red}{{\`o} ilu-ti-ko-fi-oba-je}} ti \textbf{\textcolor{ao}{china mao tse}} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\ \\
     \bottomrule
   \end{tabular}
 \end{center}
-\end{table}
+\end{table} 
 
 
 %%%% FAST TEXT EMBEDDING details
