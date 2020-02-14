@@ -20,6 +20,7 @@
 
 \author{Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
 Niger-Volta LTI\\
+\texttt{iroro@alumni.cmu.edu} \\
 \And
 David Ad{\'e}lan{\'i} \\
 Saarland University\\
@@ -27,6 +28,7 @@ Niger-Volta LTI \\
 \And
 T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa \\
 Niger-Volta LTI \\
+\texttt{timi@alum.bekeley.edu}
 \And
 Victor Williamson \\
 University of Wisconsin-Milwaukee \\
@@ -34,9 +36,9 @@ University of Wisconsin-Milwaukee \\
 \d{O}l{\'a}mil{\'e}kan Wahab \\
 Niger-Volta LTI \\
 \And
-W{\'u}r{\`a}\d{o}l{\'a} Oy{\`e}w{\`u}s{\`i} \\
+Wuraola Fisayo Oyewusi\\
 Data Science Nigeria \\
-Niger-Volta LTI \\
+\texttt{oyewusiwuraola@gmail.com}
 \And
 K\d{\'{o}}l\'{a} T\'{u}b\d{\`{o}}s\'{u}n \\
 Yor{\`u}b{\'a} Name \\
@@ -173,8 +175,8 @@ We evaluated the ADR models by computing a single-reference BLEU score using the
 
 Promising next steps include futher automation of our human-in-the-middle data-cleaning tools, further research on tools for contextualized embeddings in Yor{\`u}b{\'a} and deploying or serving these improved ADR models\footnote{\url{https://github.com/Niger-Volta-LTI/yoruba-adr}} in user-facing applications and devices.  
 
-\subsubsection*{Acknowledgments}
-The authors are grateful for all the support received from Yor{\`u}b{\'a} Name, Masakhane and Data Science Nigeria. 
+%\subsubsection*{Acknowledgments}
+%The authors are grateful for all the support received from Yor{\`u}b{\'a} Name, Masakhane and Data Science Nigeria. 
 
 \bibliography{iclr2020_conference}
 \bibliographystyle{iclr2020_conference}
@@ -216,22 +218,29 @@ The authors are grateful for all the support received from Yor{\`u}b{\'a} Name, 
 \begin{center}
   \begin{tabular}{ll}
   	\toprule \\
-\textbf{Source:}     & iriri akobuloogu \textbf{zone9} ilu ethiopia je apeere . \\
-\textbf{Reference:}  & {\`i}r{\'i}r{\'i} \textbf{ak\d{o}b{\'u}l\d{{\'o}}\d{{\`o}}g{\`u} zone9} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\
-\textbf{Prediction:} & {\`i}r{\'i}r{\'i} \textbf{\textcolor{red}{akobuloogu or{\'i}l{\`e}}} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\ \\
-  	\midrule \\ 
-		\textbf{Source:} &       mo awon ondije si ipo aare naijiria odun 2019 \\
-		\textbf{Reference:}  &   m\d{o} {\`a}w\d{o}n {\`o}{\`n}d{\'i}je s{\'i} ip{\`o} {\`a}{\`a}r\d{e} n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\
-			 \textbf{Prediction:} &   m\d{o} {\`a}w\d{o}n \textbf{\textcolor{red}{ondije}} s{\'i} ip{\`o} {\`a}{\`a}r\d{e}  n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\ \\
-     \midrule \\
-     \textbf{Source:}  & mo ro o wipe awon obirin ti o ronu lati se ise ti okunrin maa n se gbodo gberaga .\\
-     \textbf{Reference:} &  mo r{\`o} {\'o} w{\'i}p{\'e} {\`a}w\d{o}n ob{\`i}rin t{\'i} {\'o} ron{\'u} l{\'a}ti \d{s}e i\d{s}\d{{\'e}} t{\'i} \d{o}k{\`u}nrin m{\'a}a {\'n} \d{s}e gb\d{o}d\d{{\`o}} gb{\'e}raga . \\
-\textbf{Prediction:} &   mo r{\`o} {\'o} w{\'i}p{\'e} {\`a}w\d{o}n ob{\`i}rin t{\'i} {\'o} ron{\'u} l{\'a}ti \d{s}e i\d{s}\d{{\'e}} t{\'i} \d{o}k{\`u}nrin m{\'a}a {\'n} \d{s}e gb\d{o}d\d{{\`o}} gb{\'e}raga . \\ \\
-\midrule \\ 
-\textbf{Source:}     & alaga akoko ilu-ti-ko-fi-oba-je ti china mao zedong ti yo awon eniyan ninu isoro . \\
-\textbf{Reference:}  & al{\'a}ga {\`a}k\d{{\'o}}k\d{{\'o}} \textbf{{\`i}l{\'u}-t{\'i}-k{\`o}-fi-\d{o}ba-j\d{e}} ti \textbf{china mao zedong} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\
-\textbf{Prediction:} & al{\'a}ga {\`a}k\textbf{\textcolor{red}{{\'o}k{\`o} ilu-ti-ko-fi-oba-je}} ti \textbf{\textcolor{red}{china mao tse}} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\ \\
+	   \textbf{Source:}  & mo ro o wipe awon obirin ti o ronu lati se ise ti okunrin maa n se gbodo gberaga .\\
+       \textbf{Reference:} &  mo r{\`o} {\'o} w{\'i}p{\'e} {\`a}w\d{o}n ob{\`i}rin t{\'i} {\'o} ron{\'u} l{\'a}ti \d{s}e i\d{s}\d{{\'e}} t{\'i} \d{o}k{\`u}nrin m{\'a}a {\'n} \d{s}e gb\d{o}d\d{{\`o}} gb{\'e}raga . \\
+	   \textbf{Prediction:} &   mo r{\`o} {\'o} w{\'i}p{\'e} {\`a}w\d{o}n ob{\`i}rin t{\'i} {\'o} ron{\'u} l{\'a}ti \d{s}e i\d{s}\d{{\'e}} t{\'i} \d{o}k{\`u}nrin m{\'a}a {\'n} \d{s}e gb\d{o}d\d{{\`o}} gb{\'e}raga . \\ \\
 
+	\midrule \\ 
+		\textbf{Source:}     & bi o tile je pe egbeegberun ti pada sile .  \\
+		\textbf{Reference:}  & b{\'i} {\'o} til\d{{\`e}}  j\d{{\'e}}  p{\'e} \d{e}gb\d{e}\d{e}gb\d{{\`e}}r{\'u}n ti pad{\'a} s{\'i}l{\'e} . \\
+		\textbf{Prediction:} & b{\'i} {\'o} til\d{{\`e}}  j\d{{\'e}}  p{\'e} \d{e}gb\d{e}\d{e}gb\d{{\`e}}r{\'u}n ti pad{\'a} s{\'i}l{\'e} .\\ \\
+    
+    \midrule \\ 
+    	\textbf{Source:} &       mo awon ondije si ipo aare naijiria odun 2019 \\
+		\textbf{Reference:}  &   m\d{o} {\`a}w\d{o}n {\`o}{\`n}d{\'i}je s{\'i} ip{\`o} {\`a}{\`a}r\d{e} n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\
+		\textbf{Prediction:} &   m\d{o} {\`a}w\d{o}n \textbf{\textcolor{red}{ondije}} s{\'i} ip{\`o} {\`a}{\`a}r\d{e}  n{\`a}{\`i}j{\'i}r{\'i}{\`a} \d{o}d{\'u}n 2019 \\ \\	 
+
+	\midrule \\
+   	\textbf{Source:}     & iriri akobuloogu \textbf{zone9} ilu ethiopia je apeere . \\
+	\textbf{Reference:}  & {\`i}r{\'i}r{\'i} \textbf{ak\d{o}b{\'u}l\d{{\'o}}\d{{\`o}}g{\`u} zone9} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\
+	\textbf{Prediction:} & {\`i}r{\'i}r{\'i} \textbf{\textcolor{red}{akobuloogu or{\'i}l{\`e}}} {\`i}l{\'u} ethiopia j\d{{\'e}} {\`a}p\d{e}\d{e}r\d{e} . \\ \\
+  	
+    \midrule \\
+	\textbf{Source:}     & alaga akoko ilu-ti-ko-fi-oba-je ti china mao zedong ti yo awon eniyan ninu isoro . \\
+	\textbf{Reference:}  & al{\'a}ga {\`a}k\d{{\'o}}k\d{{\'o}} \textbf{{\`i}l{\'u}-t{\'i}-k{\`o}-fi-\d{o}ba-j\d{e}} ti \textbf{china mao zedong} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\
+	\textbf{Prediction:} & al{\'a}ga {\`a}k\textbf{\textcolor{red}{{\'o}k{\`o} ilu-ti-ko-fi-oba-je}} ti \textbf{\textcolor{red}{china mao tse}} ti y\d{o} {\`a}w\d{o}n {\`e}n{\`i}y{\`a}n n{\'i}n{\'u} {\`i}\d{s}{\`o}ro . \\ \\
     \bottomrule
   \end{tabular}
 \end{center}
