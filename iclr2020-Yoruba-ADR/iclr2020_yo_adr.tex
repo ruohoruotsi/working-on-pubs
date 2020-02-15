@@ -26,6 +26,7 @@ Niger-Volta LTI\\
 David Ad{\'e}lan{\'i} \\
 Saarland University\\
 Niger-Volta LTI \\
+\texttt{didelani@lsv.uni-saarland.de} \\
 \And
 T{\`i}m{\'i}l\d{\'{e}}h{\`i}n Fasubaa \\
 Niger-Volta LTI \\
@@ -169,7 +170,7 @@ from a multilingual community of journalists, translators, bloggers, academics a
 % From the texts that we had available, including interviews, journalistic news, literary and liturgical texts,  Therefore, by evaluating the quality of the various models on this diacritic restoration task would ensure that published models would best match the language usage expectations of users. For these reasons we converged on using broadcast news (Iroyin) as our evaluation set.
 
 \section{Results}\label{sec:results}
-We evaluated the ADR models by computing a single-reference BLEU score using the Moses \texttt{multi-bleu.perl} scoring script as well as the predicted perplexity of the model's own predictions. The results are summarized in Appendix \ref{sec:appendix}. All models with additional data improved over the 3-corpus baseline, with the JW300 providing a 33\% boost in BLEU. Error analyses revealed that the Transformer was robust to receiving digits, rare or code-switched words as inputs and degraded ADR performance gracefully. In many cases, this meant the model predicted the undiacritized word form or a related word from the context, but continued to correctly predict subsequent words in the sequence. The FastText embedding provided a small boost in performance for the Transformer, but was flat for the soft-attention models. 
+We evaluated the ADR models by computing a single-reference BLEU score using the Moses \texttt{multi-bleu.perl} scoring script, the predicted perplexity of the model's own predictions and the Word Error Rate (WER). All models with additional data improved over the 3-corpus baseline, with JW300 providing a \{33\%, 11\%\}  boost in BLEU and absolute WER respectively. Error analyses revealed that the Transformer was robust to receiving digits, rare or code-switched words as input and degraded ADR performance gracefully. In many cases, this meant the model predicted the undiacritized word form or a related word from the context, but continued to correctly predict subsequent words in the sequence. The FastText embedding provided a small boost in performance for the Transformer, but was mixed across metrics for the soft-attention models. The results are summarized in Appendix \ref{sec:appendix}.
   
 \section{Conclusions and Future Work}
 
@@ -187,27 +188,27 @@ Promising next steps include further automation of our human-in-the-middle data-
 \section{Appendix}\label{sec:appendix}
 
  \begin{table}[h]
-  \caption{BLEU, predicted perplexity \& WER scores on the Global Voices testset}
+  \caption{BLEU, predicted perplexity \& WER on the Global Voices testset}
   \label{tab:results-appendix}
  \begin{center}
   \begin{tabular}{lccc}
     \toprule
-    \textbf{Model} & \textbf{BLEU} &\textbf{Perplexity} &\textbf{WER}\\
+    \textbf{Model} & \textbf{BLEU} &\textbf{Perplexity} &\textbf{WER\%}\\
     \bottomrule
     \\
 %   Baseline RNN (?) & 90.1 & 1.68 \\
-    Soft-attention model from \citep{orife2018adr} & 26.53 & 1.34 & -\\
+    Soft-attention model from \citep{orife2018adr} & 26.53 & 1.34 & 58.17 \\
     \midrule
-	\hspace{5mm} + Language ID corpus & 42.52 & 1.69 & -\\ 
-	\hspace{10mm} ++ Interview text & 42.23 & 1.59 & -\\
-	\hspace{5mm} + All new text \it{minus} JW300 & 43.39 & 1.60 & -\\ 
-	\hspace{5mm} + All new text & \textbf{59.55} & 1.44 & -\\ 
-	\hspace{5mm} + All new text with FastText embedding & 58.87 & \textbf{1.39} & -\\ 
+	\hspace{5mm} + Language ID corpus & 42.52 & 1.69 & 33.03 \\ 
+	\hspace{10mm} ++ Interview text & 42.23 & 1.59 & 32.58 \\
+	\hspace{5mm} + All new text \it{minus} JW300 & 43.39 & 1.60 & 31.87 \\ 
+	\hspace{5mm} + All new text & \textbf{59.55} & 1.44 & \textbf{20.40}\\ 
+	\hspace{5mm} + All new text with FastText embedding & 58.87 & \textbf{1.39} & 21.33 \\ 
     \midrule
 	Transformer model \\
-	 \hspace{5mm} + All new text \it{minus} JW300 & 45.68 & 1.95 & -\\
-	 \hspace{5mm} + All new text & 59.05 & 1.40 & -\\
-	 \hspace{5mm} + All new text + FastText embedding & \textbf{59.80} & 1.43 & -\\ 
+	 \hspace{5mm} + All new text \it{minus} JW300 & 45.68 & 1.95 & 34.40\\
+	 \hspace{5mm} + All new text & 59.05 & \textbf{1.40} &  23.10\\
+	 \hspace{5mm} + All new text + FastText embedding & \textbf{59.80} & 1.43 & \textbf{22.42}\\ 
     \bottomrule
   \end{tabular}
   \end{center}
