@@ -21,11 +21,7 @@
 
 \author{Iroro Fred \d{\`O}n\d{\`o}m\d{\`e} Orife \\
 Niger-Volta Language Technologies Institute\\
-\texttt{iroro@alumni.cmu.edu} \\
-%\And
-%Dr. John N. Orife\\
-%Indiana University of Pennsylvania, \\
-%\texttt{jorife@iup.edu} \\
+\texttt{iroro@alumni.cmu.edu}
 }
 
 % The \author macro works with any number of authors. There are two commands
@@ -39,7 +35,7 @@ Niger-Volta Language Technologies Institute\\
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
 
-%\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
 \begin{document}
 
 
@@ -99,34 +95,6 @@ Within Nigeria there is scholarship on rule, phrase and statistical machine tran
 % Dad's view on the concepts 
 \paragraph{Qualitative:} Urhobo and Isoko with larger training texts unsurprisingly had higher BLEU scores which generally correlated with the translation quality when reviewed by L1 speakers. BPE tokenization provided approximately a 37\% boost across dev and test sets for \d{\`E}d{\'o} and \d{\`E}s{\'a}n, a 32\% boost for Urhobo but was flat to slightly worse than word-level tokenization for Isoko. Full scores and examples are listed in the Appendix.
 
-\paragraph{Error Analysis:} While studying the models' predictions, we observed that the training data requires significantly more preprocessing, notably to remove prevalent scriptural book, chapter and verse number annotations. Cleaner data will simplify the training task and generate models which generalize better on non-Biblical texts. Dialects of a singular language can also exhibit variance in the expression of concepts, so it would be advantageous to capture multiple references in different dialects. Finally, based on the performance of the Isoko models, with BLEU scores in the range \{32, 39\}, we have an estimate of how much additional clean text is required to achieve a similar performance with \d{\`E}d{\'o} and \d{\`E}s{\'a}n.
-
-\section{Future Work and Conclusions}
-Fertile avenues for future work include investigating back-translation, a full ablation study with different (subword) tokenization approaches as well as specific consideration of linguistic knowledge. We hope this initial effort will assist translators and the lay-person alike, bootstrap development and sustenance of literary traditions and energize interest in language technology for socio-linguistic and economic empowerment. Ultimately, languages with predominantly oral traditions will benefit most from (audio) speech-to-speech language technologies \citep{jia2019direct}. This present work is but one step towards that goal. All public-domain datasets and pre-trained translation models referenced in this work are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI}}
- 
-% Thee include social justice by addressing an aspect of technological language inequality, language preservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African language technology lies and machine translation and good clean datasets are the core.   
-% 
-
-
-% Applications to film and cinema technology to automatically subtitle and translate Edoid language films.
-
-% paint a future where robust speech-to-speech interfaces kick ass and allow everyone to speak freely
-
-
-
-
-\subsubsection*{Acknowledgments}
-The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife for their encouragement and qualitative critiques of the translations.
-
-\clearpage
-\bibliography{iclr2020_conference}
-\bibliographystyle{iclr2020_conference}
-
-\clearpage
-
-\appendix
-\section{Appendix}
-
 \begin{table}[h]
 \caption{Per-language BLEU scores by BPE or word-level tokenization}
 \label{results}
@@ -147,6 +115,30 @@ The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife f
   \end{tabular}
 \end{center}
 \end{table}
+
+\paragraph{Error Analysis:} While studying the models' predictions, we observed that the training data requires significantly more preprocessing, notably to remove prevalent scriptural book, chapter and verse number annotations. Cleaner data will simplify the training task and generate models which generalize better on non-Biblical texts. Dialects of a singular language can also exhibit variance in the expression of concepts, so it would be advantageous to capture multiple references in different dialects. Finally, based on the performance of the Isoko models, with BLEU scores in the range \{32, 39\}, we have an estimate of how much additional clean text is required to achieve a similar performance with \d{\`E}d{\'o} and \d{\`E}s{\'a}n.
+
+\section{Future Work and Conclusions}
+Fertile avenues for future work include investigations using unsupervised machine translation and back-translation, a full ablation study with different (subword) tokenization approaches as well as specific consideration of linguistic knowledge. A human evaluation study accompanied by a more extensive error analysis will also be crucial to better understand the linguistic features where NMT models under-perform.
+
+We hope this initial effort will assist translators and the lay-person alike, bootstrap development and sustenance of literary traditions and energize interest in language technology for socio-linguistic and economic empowerment. Ultimately, languages with predominantly oral traditions will benefit most from (audio) speech-to-speech language technologies \citep{jia2019direct}. This present work is but one step towards that goal. All public-domain datasets, pre-trained translation models and their training and evaluation configurations are available on GitHub.\footnote{\url{https://github.com/Niger-Volta-LTI/edoid-nmt}}
+ 
+% Thee include social justice by addressing an aspect of technological language inequality, language preservation and by establishing baselines and from which to build on. Given the comparatively low (Oladele Awobuluyi) litearay traditions but the very strong oral traditions, foundational language technologies based on good clean text, like language and translation models are just the start, but very important precusor to speech interfaces. Imagine a world in which a culture rooted in a strong oral tradition can make use of Speech-to-Speech interfaces, speaking and being spoken to idiomatically. This is where the future of African language technology lies and machine translation and good clean datasets are the core.   
+% 
+
+
+% Applications to film and cinema technology to automatically subtitle and translate Edoid language films.
+
+% paint a future where robust speech-to-speech interfaces kick ass and allow everyone to speak freely
+
+\subsubsection*{Acknowledgments}
+The authors thank Dr. Ajovi B. Scott-Emuakpor, MD and Dr. John Nevboyeri Orife for their encouragement and qualitative critiques of the translations.
+
+\bibliography{iclr2020_conference}
+\bibliographystyle{iclr2020_conference}
+
+\appendix
+\section{Appendix}
 
 \begin{table}[h]
 \caption{Example Translations}
