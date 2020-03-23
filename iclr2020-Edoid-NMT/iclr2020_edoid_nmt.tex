@@ -42,7 +42,7 @@ Niger-Volta Language Technologies Institute\\
 \maketitle
 
 %\begin{abstract}
-%Many Nigerian languages have   Using the new JW300 public dataset, we trained and evaluated baseline translation models for four widely spoken languages: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have been open-sourced to advance future research efforts on Edoid language technology.\\
+%Many Nigerian languages have   Using the new JW300 public dataset, we trained and evaluated baseline translation models for four widely spoken languages: \d{\`E}d{\'o}, {\'E}s{\'a}n, Urhobo and Isoko. Trained models, code and datasets have been open-sourced to advance future research efforts on Edoid language technology.\\
 
 %Given the empowering potential of language technology, we investigate the feasibility of Neural Machine Translation (NMT) for speakers of Edoid languages of Southern Nigeria.
 %\end{abstract}
@@ -56,7 +56,7 @@ Many of the 500 plus languages spoken in Nigeria today have relinquished their p
 For tens of millions of speakers, language inequalities manifest themselves as unequal access to information, communications, health care, security along with attenuated participation in political and civic life. These inequities are further exacerbated in a technological age, where only the most highly resourced (i.e. colonial) languages become the milieu for economic advancement \citep{odojelanguage, awobuluyi201626, ganagana2019contrastive}. Finally, there have been practical and technical challenges in language technology for indigenous languages like orthographic standardizations and consistent diacritic representation (Unicode) in electronic media and across device types. 
 
 % How can NMT help?
-For almost-extinct languages, machine translation offers hope for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. Using the new JW300 public dataset, we trained and evaluated baseline Neural Machine Translation (NMT) models for four widely spoken Edoid languages: \d{\`E}d{\'o}, \d{\`E}s{\'a}n, Urhobo and Isoko. 
+For almost-extinct languages, machine translation offers hope for language documentation and preservation. For speakers of minority Nigerian languages, it can facilitate good governance, national development and offers a path for technological, economic, social and political participation and empowerment to those with unequal access \citep{odoje201612, odojelanguage}. Using the new JW300 public dataset, we trained and evaluated baseline Neural Machine Translation (NMT) models for four widely spoken Edoid languages: \d{\`E}d{\'o}, {\'E}s{\'a}n, Urhobo and Isoko. 
 
 % based on economic status, demography, location and language
 %From a research vantage, these languages have been labelled ``low resource" due to the scarcity of academic research, online-datasets, funding and interest, due to perceptions about the prestige and utility of these languages in contemporary African life  
@@ -70,7 +70,7 @@ For almost-extinct languages, machine translation offers hope for language docum
 % Urhobo: 500k - 1.5M/2M
 % Isoko: 658,000 
 
-Belonging to the eastern sub-branch of the Volta-Niger family within the Niger-Congo phylum, and spoken by approximately 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta states) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, \d{\`E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{ethnologue_2019}. These languages were selected based on the availability of text and because they are the most widely spoken.
+Belonging to the eastern sub-branch of the Volta-Niger family within the Niger-Congo phylum, and spoken by approximately 5 million people, the Edoid languages of Southern Nigeria (Edo and Delta states) comprise over two dozen so-called ``minority" languages. The term \emph{Edoid} stems from \d{\`E}d{\'o}, the most broadly spoken member langauge and the language of the famed Kingdom of Benin. \d{\`E}d{\'o}, {\'E}s{\'a}n are members of the North-Central branch while Urhobo and Isoko belong to the South-Western family \citep{ethnologue_2019}. These languages were selected based on the availability of text and because they are the most widely spoken.
 
 Edoid langauges generally employ the SVO constituent order type, open syllable systems with very few consonant clusters. Each language has at least two basic tone levels, high (H) and low (L) with kinetic, downstepped or contour tones variously utilized. As tone patterns serve different lexical and grammatical functions, ``the phonetic and phonological implementation of this system is in fact complex and difficult to pin down" \citep{rolle2013phonetics, ogie2009multi, adeniyi2010tone, ilolo2013vowel}. Finally, nasalisation is very common for both vowels and consonants \citep{Elugbe_1989, isoko_phonetics, ikoyo2018phonetic}. 
 
@@ -93,7 +93,7 @@ Within Nigeria there is scholarship on rule, phrase and statistical machine tran
 \label{results}
 
 % Dad's view on the concepts 
-\paragraph{Qualitative:} Urhobo and Isoko with larger training texts unsurprisingly had higher BLEU scores which generally correlated with the translation quality when reviewed by L1 speakers. BPE tokenization provided approximately a 37\% boost across dev and test sets for \d{\`E}d{\'o} and \d{\`E}s{\'a}n, a 32\% boost for Urhobo but was flat to slightly worse than word-level tokenization for Isoko. Full scores and examples are listed in the Appendix.
+\paragraph{Qualitative:} Urhobo and Isoko with larger training texts unsurprisingly had higher BLEU scores which generally correlated with the translation quality when reviewed by L1 speakers. BPE tokenization provided approximately a 37\% boost across dev and test sets for \d{\`E}d{\'o} and {\'E}s{\'a}n, a 32\% boost for Urhobo but was flat to slightly worse than word-level tokenization for Isoko. Full scores and examples are listed in the Appendix.
 
 \begin{table}[h]
 \caption{Per-language BLEU scores by BPE or word-level tokenization}
@@ -107,7 +107,7 @@ Within Nigeria there is scholarship on rule, phrase and statistical machine tran
   & dev & test & dev & test \\
   \midrule
   \d{\`E}d{\'o}  & 7.92 & 12.49 & 5.99 & 8.24 &  229,307 & 10,188 \\
-  \d{\`E}s{\'a}n & 4.94 & 6.25 & 3.39 & 5.30 & 87,025 & 4,128 \\
+  {\'E}s{\'a}n & 4.94 & 6.25 & 3.39 & 5.30 & 87,025 & 4,128 \\
     \midrule
   Urhobo  & 15.91 & 28.82 & 11.80 & 22.39 & 519,981 & 25,610 \\
   Isoko   & 32.58 & 38.05 & 32.38 & 38.91 & 4,824,998 & 214,546 \\
@@ -116,7 +116,7 @@ Within Nigeria there is scholarship on rule, phrase and statistical machine tran
 \end{center}
 \end{table}
 
-\paragraph{Error Analysis:} While studying the models' predictions, we observed that the training data requires significantly more preprocessing, notably to remove prevalent scriptural book, chapter and verse number annotations. Cleaner data will simplify the training task and generate models which generalize better on non-Biblical texts. Dialects of a singular language can also exhibit variance in the expression of concepts, so it would be advantageous to capture multiple references in different dialects. Finally, based on the performance of the Isoko models, with BLEU scores in the range \{32, 39\}, we have an estimate of how much additional clean text is required to achieve a similar performance with \d{\`E}d{\'o} and \d{\`E}s{\'a}n.
+\paragraph{Error Analysis:} While studying the models' predictions, we observed that the training data requires significantly more preprocessing, notably to remove prevalent scriptural book, chapter and verse number annotations. Cleaner data will simplify the training task and generate models which generalize better on non-Biblical texts. Dialects of a singular language can also exhibit variance in the expression of concepts, so it would be advantageous to capture multiple references in different dialects. Finally, based on the performance of the Isoko models, with BLEU scores in the range \{32, 39\}, we have an estimate of how much additional clean text is required to achieve a similar performance with \d{\`E}d{\'o} and {\'E}s{\'a}n.
 
 \section{Future Work and Conclusions}
 Fertile avenues for future work include investigations using unsupervised machine translation and back-translation, a full ablation study with different (subword) tokenization approaches as well as specific consideration of linguistic knowledge. A human evaluation study accompanied by a more extensive error analysis will also be crucial to better understand the linguistic features where NMT models under-perform.
@@ -157,7 +157,7 @@ Hypothesis: & De emwi ne ima gha ru ne ima mieke na gha mw\d{e} ir\d{e}nmwi n\d{
 	Prediction:  & De emwi n\d{o} kh\d{e}ke ne \d{o}mwa n\d{o} dizigha \d{o}y\d{e}vbu ru ? \\
 	 \bottomrule
      \\
-    \textbf{\d{\`E}s{\'a}n}  & \\
+    \textbf{{\'E}s{\'a}n}  & \\
      \midrule
      \midrule
 	Source:      &  I WAS raised in Graz , Austria . \\
